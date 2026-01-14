@@ -632,6 +632,12 @@
                     </div>
                 </div>
 
+                <!-- Important Note on Identification Requirements -->
+                <div class="warning-box" style="margin-bottom: 30px;">
+                    <strong>⚠️ Important Notice:</strong>
+                    <p style="margin-top: 10px;">BVI Money-Laundering legislation authorizes us to obtain and hold certified copies of the Beneficial Owner(s), Director(s) and Shareholder(s) passports or other photographic identification (drivers licence) and evidence of residential address. In addition, where applicable, we require additional information in the form of a professional or bank reference on clients as part of our procedures and policies. All identification documents are to be valid and documents evidencing proof of address should not be dated older than 3 months.</p>
+                </div>
+
                 <!-- Section 6: Beneficial Owners -->
                 <div class="section">
                     <h3 class="section-title">6. Information of the Beneficial Owner(s)</h3>
@@ -643,7 +649,11 @@
                 <div class="section">
                     <h3 class="section-title">7. Director Information</h3>
                     <div class="note-box">
-                        <strong>Note:</strong> If new directors are to be appointed, please provide an executed director's consent letter.
+                        <strong>📋 Notes:</strong>
+                        <ol style="margin-top: 10px; margin-left: 20px; line-height: 1.6;">
+                            <li style="margin-bottom: 10px;">If new directors are to be appointed, please provide an executed director's consent letter.</li>
+                            <li><strong>Corporate Directors:</strong> Where the director/s is a Company we will require certified copies of the individual documents listed above on behalf of the beneficial owner/s of the Company together with a certified copy of the Register of Members, Register of Directors, Certificate of Incorporation and Memorandum and Articles of Association of the Company.</li>
+                        </ol>
                     </div>
                     <div id="directorsContainer"></div>
                     <button type="button" class="btn btn-primary" onclick="addDirector()">+ Add Director</button>
@@ -652,6 +662,21 @@
                 <!-- Section 8: Shareholders -->
                 <div class="section">
                     <h3 class="section-title">8. Shareholder Information</h3>
+                    
+                    <div class="note-box" style="margin-bottom: 20px;">
+                        <strong>📋 Important Notes:</strong>
+                        <ol style="margin-top: 10px; margin-left: 20px; line-height: 1.6;">
+                            <li style="margin-bottom: 10px;"><strong>Corporate Shareholders:</strong> Please provide on behalf of each Corporate Shareholder, certified or duly notarized copies of the Certificate of Incorporation, Memorandum and Articles of Association, Register of Members and Register of Directors together with the due diligence requirements of the beneficial owner of the company.</li>
+                            <li><strong>Listed Company Shareholders:</strong> Where a company listed on a stock exchange is a shareholder of a BVI Business Company, the following KYC (Know Your Client) documentation is required:
+                                <ul style="margin-top: 5px; margin-left: 20px;">
+                                    <li>Confirmation of listing</li>
+                                    <li>Latest audited financial statements</li>
+                                    <li>Structure chart showing the BVI link to the listed company</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    
                     <div id="shareholdersContainer"></div>
                     <button type="button" class="btn btn-primary" onclick="addShareholder()">+ Add Shareholder</button>
                 </div>
@@ -675,7 +700,7 @@
 
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="documentsLocation" value="agent" checked onchange="toggleDocumentLocation()">
+                            <input type="radio" name="documentsLocation" value="agent" onchange="toggleDocumentLocation()">
                             <span>Documents will be held by Bethel Worldwide Corporation (Registered Agent)</span>
                         </label>
                         <label class="radio-label">
@@ -689,6 +714,36 @@
                             <label>Contact Person or Firm Holding Documents</label>
                             <input type="text" id="docLocationContact">
                         </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" id="docLocationAddress">
+                        </div>
+                        <div class="form-group">
+                            <label>Street</label>
+                            <input type="text" id="docLocationStreet">
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" id="docLocationCity">
+                            </div>
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" id="docLocationState">
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Postal Code</label>
+                                <input type="text" id="docLocationPostalCode">
+                            </div>
+                            <div class="form-group">
+                                <label>Country</label>
+                                <select id="docLocationCountry">
+                                    <option value="">Select Country</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="grid-2">
                             <div class="form-group">
                                 <label>Email</label>
@@ -698,10 +753,6 @@
                                 <label>Telephone Number</label>
                                 <input type="tel" id="docLocationPhone">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Address Where Documents Are Held</label>
-                            <textarea id="docLocationAddress" rows="2"></textarea>
                         </div>
                     </div>
                 </div>
@@ -718,7 +769,7 @@
                                 <span>Yes</span>
                             </label>
                             <label class="radio-label">
-                                <input type="radio" name="hasBankAccount" value="no" checked onchange="toggleBankInfo()">
+                                <input type="radio" name="hasBankAccount" value="no" onchange="toggleBankInfo()">
                                 <span>No</span>
                             </label>
                         </div>
@@ -768,23 +819,87 @@
                         </label>
                     </div>
 
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="requireAccounting" onchange="toggleAccountingYearEnd()">
-                            <span>Do you require us to prepare yearly Accounts?</span>
-                        </label>
+                    <div class="form-group" style="margin-top: 25px;">
+                        <label>Do you require us to prepare yearly accounts?</label>
+                        <div class="radio-group" style="flex-direction: row; gap: 20px;">
+                            <label class="radio-label">
+                                <input type="radio" name="requireAccounting" value="yes" onchange="toggleAccountingInfo()">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="requireAccounting" value="no" onchange="toggleAccountingInfo()">
+                                <span>No</span>
+                            </label>
+                        </div>
                     </div>
 
-                    <div id="accountingYearEnd" style="display: none; margin-top: 15px;">
+                    <!-- Show if YES to yearly accounts -->
+                    <div id="accountingYearEndYes" style="display: none; margin-top: 15px;">
                         <div class="form-group">
                             <label>Accounting Year End Reference Date (DD/MM)</label>
                             <input type="text" id="accountingYearEndDate" placeholder="e.g., 31/12">
                         </div>
+                        <div class="form-group">
+                            <label>Company Financial Year End Date and any other special requirements</label>
+                            <textarea id="financialRequirements" rows="3"></textarea>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>Company Financial Year End Date and any other special requirements</label>
-                        <textarea id="financialRequirements" rows="3"></textarea>
+                    <!-- Show if NO to yearly accounts -->
+                    <div id="accountingYearEndNo" style="display: none; margin-top: 15px;">
+                        <div class="subsection-title">Financial Documents Location</div>
+                        <div class="form-group">
+                            <label>Contact person or firm holding the company's financial documents</label>
+                            <input type="text" id="financialContactName">
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" id="financialContactAddress">
+                        </div>
+                        <div class="form-group">
+                            <label>Street</label>
+                            <input type="text" id="financialContactStreet">
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" id="financialContactCity">
+                            </div>
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" id="financialContactState">
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Postal Code</label>
+                                <input type="text" id="financialContactPostalCode">
+                            </div>
+                            <div class="form-group">
+                                <label>Country</label>
+                                <select id="financialContactCountry">
+                                    <option value="">Select Country</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Contact's Phone</label>
+                                <input type="tel" id="financialContactPhone">
+                            </div>
+                            <div class="form-group">
+                                <label>Contact's Email</label>
+                                <input type="email" id="financialContactEmail">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Company's Financial Year End Date (DD/MM)</label>
+                            <input type="text" id="companyFinancialYearEnd" placeholder="e.g., 31/12">
+                        </div>
+                        <div class="form-group">
+                            <label>Any other special requirements</label>
+                            <textarea id="otherSpecialRequirements" rows="3"></textarea>
+                        </div>
                     </div>
                 </div>
 
@@ -793,57 +908,137 @@
                     <h3 class="section-title">Documentation of the Company</h3>
                     
                     <div class="note-box">
-                        <strong>📎 Important:</strong> The following corporate documents must accompany this form when submitting to Bethel Worldwide Corporation.
+                        <strong>📎 Instructions:</strong> Check the box next to each document you are including with this form submission.
                     </div>
 
+                    <!-- Corporate Records -->
+                    <div class="subsection-title">Corporate Records</div>
                     <div class="checkbox-group">
                         <label class="checkbox-label">
                             <input type="checkbox" id="doc_certificate">
-                            <span><strong>Certified copy</strong> of the Certificate of Incorporation</span>
+                            <span>Certificate of Incorporation</span>
                         </label>
                         <label class="checkbox-label">
                             <input type="checkbox" id="doc_memorandum">
-                            <span><strong>Certified copy</strong> of the Memorandum and Articles of Association</span>
+                            <span>Memorandum and Articles of Association</span>
                         </label>
                         <label class="checkbox-label">
                             <input type="checkbox" id="doc_register_members">
-                            <span><strong>Original or certified copy</strong> of the updated Register of Members (Shareholders)</span>
+                            <span>Registry filed Register of Members (Shareholders)</span>
                         </label>
                         <label class="checkbox-label">
                             <input type="checkbox" id="doc_register_directors">
-                            <span><strong>Original or certified copy</strong> of the updated Register of Directors</span>
+                            <span>Registry filed Register of Directors</span>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" id="doc_register_officers">
-                            <span><strong>Original or certified copy</strong> of the updated Register of Officers (if applicable)</span>
+                            <input type="checkbox" id="doc_register_beneficial">
+                            <span>Registry filed Register of Beneficial Owners</span>
                         </label>
                         <label class="checkbox-label">
                             <input type="checkbox" id="doc_share_certificates">
-                            <span><strong>Certified copies</strong> of share certificates issued on behalf of the Company</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="doc_register_charges">
-                            <span><strong>Certified copies</strong> of any Register of Charges held on behalf of the Company</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="doc_litigation">
-                            <span><strong>Certified copies</strong> of any documents relating to any pending or prior litigations (if applicable)</span>
+                            <span>Share Certificates</span>
                         </label>
                     </div>
 
+                    <!-- If Applicable Section -->
+                    <div class="subsection-title" style="margin-top: 20px;">If Applicable</div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_register_officers">
+                            <span>Updated Register of Officers</span>
+                        </label>
+                        <label class="checkbox-label" style="margin-left: 30px;">
+                            <input type="checkbox" id="doc_register_officers_na">
+                            <span style="font-style: italic; color: #666;">Not Applicable (check if your company does not have officers beyond directors)</span>
+                        </label>
+                        
+                        <label class="checkbox-label" style="margin-top: 15px;">
+                            <input type="checkbox" id="doc_register_charges">
+                            <span>Register of Charges</span>
+                        </label>
+                        <label class="checkbox-label" style="margin-left: 30px;">
+                            <input type="checkbox" id="doc_register_charges_na">
+                            <span style="font-style: italic; color: #666;">Not Applicable (check if your company has no registered charges)</span>
+                        </label>
+                    </div>
+
+                    <!-- Legal & Compliance -->
+                    <div class="subsection-title" style="margin-top: 20px;">Legal & Compliance</div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_company_seal">
+                            <span>An imprint of the company seal</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_consent_directors">
+                            <span>Copy of the Consent(s) to act as directors</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_resolutions">
+                            <span>Copies of the resolutions of directors</span>
+                        </label>
+                        
+                        <label class="checkbox-label" style="margin-top: 15px;">
+                            <input type="checkbox" id="doc_litigation">
+                            <span>Documents relating to pending or prior litigation</span>
+                        </label>
+                        <label class="checkbox-label" style="margin-left: 30px;">
+                            <input type="checkbox" id="doc_litigation_na">
+                            <span style="font-style: italic; color: #666;">Not Applicable (check if no litigation exists)</span>
+                        </label>
+                    </div>
+
+                    <!-- Regulatory Filings -->
+                    <div class="subsection-title" style="margin-top: 20px;">Regulatory Filings</div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_economic_substance">
+                            <span>Copy of annual economic substance report</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_annual_return">
+                            <span>Copy of annual return filing</span>
+                        </label>
+                    </div>
+
+                    <!-- Company Information -->
+                    <div class="subsection-title" style="margin-top: 20px;">Company Information</div>
+                    <div class="form-group">
+                        <label>Financial Year End Date</label>
+                        <input type="date" id="financial_year_end">
+                    </div>
+
+                    <!-- Document Submission Checklist Summary -->
+                    <div class="warning-box" style="margin-top: 30px; background-color: #f0f9ff; border-color: #2d5986;">
+                        <strong>📋 Document Submission Checklist Summary</strong>
+                        <p style="margin-top: 15px;"><strong>Total documents required:</strong> 11 core documents + applicable items</p>
+                        
+                        <div style="margin-top: 15px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Documents included with this submission:</label>
+                            <textarea id="documents_list" rows="6" placeholder="Please list all documents you are attaching (e.g., 1. Certificate of Incorporation, 2. Memorandum and Articles...)"></textarea>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Documents marked "Not Applicable":</label>
+                            <input type="text" id="documents_na_count" placeholder="Enter number (e.g., 2)">
+                        </div>
+                    </div>
+
+                    <!-- Certification Requirements -->
                     <div class="warning-box" style="margin-top: 20px;">
                         <strong>Certification Requirements:</strong>
                         <p style="margin-top: 10px;">Documents must be certified by: Lawyer, Certified Auditor, Notary Public, Embassy Official, Certified Accountant, Consulate, Medical Practitioner, Judicial Officer, Senior Public Officer, Senior Police Officer, Director/Manager/Senior Officer of a Regulated Financial Institution, Commissioner of Oaths, or Bank Manager.</p>
                         <p style="margin-top: 10px;">Certification must include: certifier's name, address, date, and signature or seal.</p>
-                        <p style="margin-top: 10px;"><strong>Translation:</strong> All documents must be in English or translated into English by a certified translator with their credentials clearly stated.</p>
+                        <p style="margin-top: 10px;"><strong>Translation:</strong> All documents supplied to us must be in English or translated into English by a certified translator. The name and address of the certified translator, the date of the certification and the signature or seal of the certified translator must be clearly stated on the translated documents.</p>
                     </div>
 
-                    <div class="agreement-box">
+                    <!-- Final Confirmation -->
+                    <div class="agreement-box" style="margin-top: 20px;">
                         <strong>Document Submission Confirmation</strong>
                         <div class="agreement-checkbox">
                             <input type="checkbox" id="confirm_documents_attached" required>
                             <label for="confirm_documents_attached">
-                                I confirm that I will attach all required documents listed above when submitting this transfer form to Bethel Worldwide Corporation via email. <span class="required">*</span>
+                                I confirm that all checked documents are attached to this email submission. <span class="required">*</span>
                             </label>
                         </div>
                         <span class="error-message" id="error-confirm_documents"></span>
@@ -854,83 +1049,122 @@
                 <div class="section">
                     <h3 class="section-title">Declaration</h3>
                     
-                    <div class="warning-box">
-                        <strong>Beneficial Owner(s) Declaration:</strong>
-                        <p style="margin-top: 10px;">I/We confirm that to the best of my/our knowledge and belief that the information contained and provided in this Company Transfer In Form is correct and that we will inform Bethel Worldwide Corporation of any changes to the information contained herein. We confirm that we will discharge all professional fees and costs arising from the transfer and administration of the Company as requested by Bethel Worldwide Corporation.</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Name of Declarant <span class="required">*</span></label>
-                        <input type="text" id="declarantName" required>
-                        <span class="error-message" id="error-declarantName"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Capacity/Title <span class="required">*</span></label>
-                        <input type="text" id="declarantCapacity" required>
-                        <span class="error-message" id="error-declarantCapacity"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Date <span class="required">*</span></label>
-                        <input type="date" id="declarationDate" required>
-                        <span class="error-message" id="error-declarationDate"></span>
-                    </div>
-
-                    <!-- Digital Signature -->
-                    <div class="form-group">
-                        <label>Digital Signature <span class="required">*</span></label>
-                        <div class="info-box">
-                            <strong>📝 About Digital Signatures:</strong> Your digital signature has the same legal validity as a handwritten signature. 
-                            You can either draw your signature using your mouse/touchscreen or upload an image of your signature.
-                        </div>
-                        
-                        <div class="signature-container">
-                            <div class="signature-tabs">
-                                <button type="button" class="signature-tab active" onclick="switchSignatureTab('draw')">
-                                    ✍️ Draw Signature
-                                </button>
-                                <button type="button" class="signature-tab" onclick="switchSignatureTab('upload')">
-                                    📤 Upload Image
-                                </button>
-                            </div>
-
-                            <div id="drawPanel" class="signature-panel active">
-                                <p style="margin-bottom: 10px; color: #666; font-size: 14px;">Draw your signature in the box below:</p>
-                                <canvas id="signatureCanvas" width="500" height="200"></canvas>
-                                <div class="canvas-controls">
-                                    <button type="button" class="btn btn-secondary" onclick="clearSignature()">Clear</button>
-                                    <button type="button" class="btn btn-primary" onclick="saveDrawnSignature()">Save Signature</button>
-                                </div>
-                            </div>
-
-                            <div id="uploadPanel" class="signature-panel">
-                                <p style="margin-bottom: 10px; color: #666; font-size: 14px;">Upload an image of your signature (PNG, JPG, or JPEG):</p>
-                                <input type="file" id="signatureUpload" accept="image/png,image/jpeg,image/jpg">
-                                <label for="signatureUpload" class="file-upload-label">📁 Choose File</label>
-                                <p style="margin-top: 10px; font-size: 13px; color: #666;">For best results, use a clear image with a white background.</p>
-                            </div>
-
-                            <div id="signaturePreview" class="signature-preview">
-                                <div class="signature-preview-header">
-                                    <span style="color: #059669; font-weight: 600;">✓ Signature Captured</span>
-                                    <button type="button" class="btn btn-secondary" onclick="clearSavedSignature()" style="padding: 6px 12px; font-size: 14px;">Change</button>
-                                </div>
-                                <img id="signatureImage" src="" alt="Your Signature">
-                            </div>
-                        </div>
-                        <span class="error-message" id="error-signature"></span>
-                    </div>
-
-                    <div class="agreement-box">
-                        <strong>Electronic Signature Agreement</strong>
-                        <div class="agreement-checkbox">
-                            <input type="checkbox" id="signatureAgreement" required>
-                            <label for="signatureAgreement">
-                                I agree that my digital signature above is the legal equivalent of my manual/handwritten signature and I consent to be legally bound by this electronic signature. <span class="required">*</span>
+                    <div class="form-group" style="margin-bottom: 25px;">
+                        <label>Select Declaration Type <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="declarationType" value="beneficial" onchange="toggleDeclarationType()">
+                                <span>Beneficial Owner(s) Declaration</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="declarationType" value="professional" onchange="toggleDeclarationType()">
+                                <span>Professional Adviser(s) Declaration</span>
                             </label>
                         </div>
-                        <span class="error-message" id="error-agreement"></span>
+                        <span class="error-message" id="error-declarationType"></span>
+                    </div>
+
+                    <!-- Beneficial Owner(s) Declaration -->
+                    <div id="beneficialDeclaration" style="display: none;">
+                        <div class="warning-box">
+                            <strong>Beneficial Owner(s) Declaration:</strong>
+                            <p style="margin-top: 10px;">I/We confirm that to the best of my/our knowledge and belief that the information contained and provided in and with this Incorporation Questionnaire is correct and that we will inform Bethel Worldwide Corporation of any changes to the information contained in. We confirm that we will discharge all professional fees and costs arising from the incorporation and administration of the Company as requested by Bethel Worldwide Corporation.</p>
+                        </div>
+
+                        <div id="beneficialSignaturesContainer" style="margin-top: 20px;"></div>
+                        <button type="button" class="btn btn-primary" onclick="addBeneficialSignature()" style="margin-top: 15px;">+ Add Beneficial Owner Signature</button>
+                    </div>
+
+                    <!-- Professional Adviser(s) Declaration -->
+                    <div id="professionalDeclaration" style="display: none;">
+                        <div class="warning-box">
+                            <strong>Professional Adviser(s) Declaration:</strong>
+                            <p style="margin-top: 10px;">I/We, the undersigned, acting as professional advisers with full authority of the beneficial owner(s) of the Company, certify and confirm that to the best of my/our knowledge and belief that:-</p>
+                            <ol style="margin-top: 10px; margin-left: 20px; line-height: 1.8;">
+                                <li>The information contained in the incorporation questionnaire is correct.</li>
+                                <li>We will inform Bethel Worldwide Corporation should any changes occur to the information in the incorporation questionnaire.</li>
+                                <li>We are authorized to sign on behalf of the beneficial owner(s) of the Company and other related forms provided in the incorporation questionnaire.</li>
+                                <li>We will discharge all professional fees and costs arising from the incorporation and administration of the Company as requested by Bethel Worldwide Corporation.</li>
+                                <li>Confirm that the beneficial owner(s) indemnify(ies) and hold(s) blameless any member of the practice or its staff who act in any capacity for the company from any claim or action from their connection with the company unless fraud or negligence can be proved.</li>
+                                <li>We have undertaken adequate compliance/due diligence procedures with regards to the identity of the beneficial owner of the Company and have received satisfactory references.</li>
+                                <li>We know of no reason why Bethel Worldwide Corporation should not or continue to act as Registered Agent and Registered Office.</li>
+                                <li>We will inform Bethel Worldwide Corporation immediately if we cease to act for the client.</li>
+                            </ol>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>Name of Professional Adviser <span class="required">*</span></label>
+                            <input type="text" id="professionalAdviserName">
+                            <span class="error-message" id="error-professionalAdviserName"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Firm/Practice Name <span class="required">*</span></label>
+                            <input type="text" id="professionalFirmName">
+                            <span class="error-message" id="error-professionalFirmName"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date <span class="required">*</span></label>
+                            <input type="date" id="professionalDeclarationDate">
+                            <span class="error-message" id="error-professionalDeclarationDate"></span>
+                        </div>
+
+                        <!-- Professional Adviser Digital Signature -->
+                        <div class="form-group">
+                            <label>Digital Signature <span class="required">*</span></label>
+                            <div class="info-box">
+                                <strong>📝 About Digital Signatures:</strong> Your digital signature has the same legal validity as a handwritten signature. 
+                                You can either draw your signature using your mouse/touchscreen or upload an image of your signature.
+                            </div>
+                            
+                            <div class="signature-container">
+                                <div class="signature-tabs">
+                                    <button type="button" class="signature-tab active" onclick="switchSignatureTab('draw')">
+                                        ✍️ Draw Signature
+                                    </button>
+                                    <button type="button" class="signature-tab" onclick="switchSignatureTab('upload')">
+                                        📤 Upload Image
+                                    </button>
+                                </div>
+
+                                <div id="drawPanel" class="signature-panel active">
+                                    <p style="margin-bottom: 10px; color: #666; font-size: 14px;">Draw your signature in the box below:</p>
+                                    <canvas id="signatureCanvas" width="500" height="200"></canvas>
+                                    <div class="canvas-controls">
+                                        <button type="button" class="btn btn-secondary" onclick="clearSignature()">Clear</button>
+                                        <button type="button" class="btn btn-primary" onclick="saveDrawnSignature()">Save Signature</button>
+                                    </div>
+                                </div>
+
+                                <div id="uploadPanel" class="signature-panel">
+                                    <p style="margin-bottom: 10px; color: #666; font-size: 14px;">Upload an image of your signature (PNG, JPG, or JPEG):</p>
+                                    <input type="file" id="signatureUpload" accept="image/png,image/jpeg,image/jpg">
+                                    <label for="signatureUpload" class="file-upload-label">📁 Choose File</label>
+                                    <p style="margin-top: 10px; font-size: 13px; color: #666;">For best results, use a clear image with a white background.</p>
+                                </div>
+
+                                <div id="signaturePreview" class="signature-preview">
+                                    <div class="signature-preview-header">
+                                        <span style="color: #059669; font-weight: 600;">✓ Signature Captured</span>
+                                        <button type="button" class="btn btn-secondary" onclick="clearSavedSignature()" style="padding: 6px 12px; font-size: 14px;">Change</button>
+                                    </div>
+                                    <img id="signatureImage" src="" alt="Your Signature">
+                                </div>
+                            </div>
+                            <span class="error-message" id="error-signature"></span>
+                        </div>
+
+                        <div class="agreement-box">
+                            <strong>Electronic Signature Agreement</strong>
+                            <div class="agreement-checkbox">
+                                <input type="checkbox" id="signatureAgreement" required>
+                                <label for="signatureAgreement">
+                                    I agree that my digital signature above is the legal equivalent of my manual/handwritten signature and I consent to be legally bound by this electronic signature. <span class="required">*</span>
+                                </label>
+                            </div>
+                            <span class="error-message" id="error-agreement"></span>
+                        </div>
                     </div>
                 </div>
 
@@ -1097,17 +1331,25 @@
             reader.readAsDataURL(file);
         });
 
-        function switchSignatureTab(tab) {
-            const tabs = document.querySelectorAll('.signature-tab');
-            const panels = document.querySelectorAll('.signature-panel');
+        function switchSignatureTab(tab, type = '') {
+            const suffix = type ? type.charAt(0).toUpperCase() + type.slice(1) : '';
+            const drawPanelId = type ? `drawPanel${suffix}` : 'drawPanel';
+            const uploadPanelId = type ? `uploadPanel${suffix}` : 'uploadPanel';
+            
+            const container = type ? document.getElementById(drawPanelId)?.parentElement : document.querySelector('.signature-container');
+            if (!container) return;
+            
+            const tabs = container.querySelectorAll('.signature-tab');
+            const panels = container.querySelectorAll('.signature-panel');
             tabs.forEach(t => t.classList.remove('active'));
             panels.forEach(p => p.classList.remove('active'));
+            
             if (tab === 'draw') {
-                tabs[0].classList.add('active');
-                document.getElementById('drawPanel').classList.add('active');
+                tabs[0]?.classList.add('active');
+                document.getElementById(drawPanelId)?.classList.add('active');
             } else {
-                tabs[1].classList.add('active');
-                document.getElementById('uploadPanel').classList.add('active');
+                tabs[1]?.classList.add('active');
+                document.getElementById(uploadPanelId)?.classList.add('active');
             }
         }
 
@@ -1121,9 +1363,20 @@
             document.getElementById('bankAccountInfo').style.display = hasAccount ? 'block' : 'none';
         }
 
-        function toggleAccountingYearEnd() {
-            const require = document.getElementById('requireAccounting').checked;
-            document.getElementById('accountingYearEnd').style.display = require ? 'block' : 'none';
+        function toggleAccountingInfo() {
+            const yesSelected = document.querySelector('input[name="requireAccounting"][value="yes"]');
+            const noSelected = document.querySelector('input[name="requireAccounting"][value="no"]');
+            
+            if (yesSelected && yesSelected.checked) {
+                document.getElementById('accountingYearEndYes').style.display = 'block';
+                document.getElementById('accountingYearEndNo').style.display = 'none';
+            } else if (noSelected && noSelected.checked) {
+                document.getElementById('accountingYearEndYes').style.display = 'none';
+                document.getElementById('accountingYearEndNo').style.display = 'block';
+            } else {
+                document.getElementById('accountingYearEndYes').style.display = 'none';
+                document.getElementById('accountingYearEndNo').style.display = 'none';
+            }
         }
 
         // Beneficial Owner functions
@@ -1305,7 +1558,7 @@
                             <span>Yes</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="pep_${index}" value="no" checked onchange="togglePEPExplanation(${index})">
+                            <input type="radio" name="pep_${index}" value="no" onchange="togglePEPExplanation(${index})">
                             <span>No</span>
                         </label>
                     </div>
@@ -1332,6 +1585,67 @@
             if (explanation) {
                 explanation.style.display = isPEP ? 'block' : 'none';
             }
+        }
+
+        // Declaration type toggle
+        function toggleDeclarationType() {
+            const beneficialSelected = document.querySelector('input[name="declarationType"][value="beneficial"]');
+            const professionalSelected = document.querySelector('input[name="declarationType"][value="professional"]');
+            
+            if (beneficialSelected && beneficialSelected.checked) {
+                document.getElementById('beneficialDeclaration').style.display = 'block';
+                document.getElementById('professionalDeclaration').style.display = 'none';
+                // Initialize with one signature if empty
+                if (beneficialSignatures.length === 0) {
+                    addBeneficialSignature();
+                }
+            } else if (professionalSelected && professionalSelected.checked) {
+                document.getElementById('beneficialDeclaration').style.display = 'none';
+                document.getElementById('professionalDeclaration').style.display = 'block';
+            } else {
+                document.getElementById('beneficialDeclaration').style.display = 'none';
+                document.getElementById('professionalDeclaration').style.display = 'none';
+            }
+        }
+
+        // Beneficial owner signatures array
+        let beneficialSignatures = [];
+
+        function addBeneficialSignature() {
+            const index = beneficialSignatures.length;
+            beneficialSignatures.push({});
+            const container = document.getElementById('beneficialSignaturesContainer');
+            const div = document.createElement('div');
+            div.className = 'array-item';
+            div.innerHTML = `
+                <div class="array-item-header">
+                    <div class="array-item-title">Beneficial Owner ${index + 1}</div>
+                    ${index > 0 ? `<button type="button" class="btn btn-danger" onclick="removeBeneficialSignature(${index})">Remove</button>` : ''}
+                </div>
+                
+                <div class="form-group">
+                    <label>Name of Beneficial Owner</label>
+                    <input type="text" id="beneficialOwnerName_${index}" placeholder="Full name of beneficial owner">
+                </div>
+
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="beneficialOwnerDate_${index}">
+                </div>
+
+                <div class="info-box" style="margin-top: 15px;">
+                    <strong>📝 Signature Instructions:</strong> Each beneficial owner must sign the downloaded PDF document before submitting it to Bethel Worldwide Corporation. Spaces for signatures will be included in the final PDF.
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeBeneficialSignature(index) {
+            const container = document.getElementById('beneficialSignaturesContainer');
+            if (container.children[index]) {
+                container.children[index].remove();
+            }
+            beneficialSignatures[index] = null;
         }
 
         // Director functions
@@ -1495,6 +1809,19 @@
                 <div class="array-item-header">
                     <div class="array-item-title">Shareholder ${index + 1}</div>
                     ${index > 0 ? `<button type="button" class="btn btn-danger" onclick="removeShareholder(${index})">Remove</button>` : ''}
+                </div>
+                <div class="form-group">
+                    <label>Shareholder Status</label>
+                    <div class="radio-group" style="flex-direction: row; gap: 20px;">
+                        <label class="radio-label">
+                            <input type="radio" name="shareholderStatus_${index}" data-shareholder="${index}" data-field="status" value="existing">
+                            <span>Existing Shareholder</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="shareholderStatus_${index}" data-shareholder="${index}" data-field="status" value="new">
+                            <span>New Shareholder</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Number of Shares</label>
