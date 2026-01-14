@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Substance Declaration - Distribution and Service Centre | Bethel Worldwide Corporation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5986 100%);
+            padding: 40px 20px;
+            font-family: 'Crimson Pro', Georgia, serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2d5986 0%, #1e3a5f 100%);
+            padding: 40px;
+            color: white;
+            text-align: center;
+            border-bottom: 4px solid #d4af37;
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .header h2 {
+            margin: 10px 0 0 0;
+            font-size: 20px;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #1e3a5f;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 8px;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .subsection-title {
+            font-size: 18px;
+            color: #2d5986;
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #2d5986;
+        }
+
+        input.error,
+        textarea.error,
+        select.error {
+            border-color: #dc2626;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-label,
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        .array-item {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background-color: #f9fafb;
+            position: relative;
+        }
+
+        .array-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d1d5db;
+        }
+
+        .array-item-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d5986;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #2d5986;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e3a5f;
+        }
+
+        .btn-secondary {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .btn-submit {
+            padding: 16px 48px;
+            background-color: #2d5986;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .btn-submit:hover {
+            background-color: #1e3a5f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .info-box {
+            background-color: #dbeafe;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #60a5fa;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .note-box {
+            background-color: #fef3c7;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #fbbf24;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .warning-box {
+            background-color: #fee2e2;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #f87171;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* Signature styles */
+        .signature-container {
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            padding: 20px;
+            background-color: #f9fafb;
+            margin-top: 10px;
+        }
+
+        .signature-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .signature-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 15px;
+            font-weight: 600;
+            color: #6b7280;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .signature-tab.active {
+            color: #2d5986;
+            border-bottom-color: #2d5986;
+        }
+
+        .signature-panel {
+            display: none;
+        }
+
+        .signature-panel.active {
+            display: block;
+        }
+
+        #signatureCanvas {
+            border: 2px dashed #d1d5db;
+            border-radius: 4px;
+            cursor: crosshair;
+            background: white;
+            display: block;
+            width: 100%;
+            max-width: 500px;
+            touch-action: none;
+        }
+
+        .canvas-controls {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .signature-preview {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .signature-preview.active {
+            display: block;
+        }
+
+        .signature-preview img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .signature-preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-upload-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2d5986;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .file-upload-label:hover {
+            background-color: #1e3a5f;
+        }
+
+        .agreement-box {
+            background-color: #f0fdf4;
+            border: 2px solid #22c55e;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .agreement-checkbox {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .agreement-checkbox input[type="checkbox"] {
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .agreement-checkbox label {
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 3px solid #d4af37;
+        }
+
+        .submit-note {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer {
+            background-color: #f3f4f6;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .form-content {
+                padding: 20px;
+            }
+
+            #signatureCanvas {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Bethel Worldwide Corporation</h1>
+            <h2>Economic Substance Declaration</h2>
+            <p style="margin-top: 10px; font-size: 16px; opacity: 0.95;">Distribution and Service Centre Business</p>
+        </div>
+
+        <!-- Form Content -->
+        <div class="form-content">
+            <form id="economicSubstanceForm">
+                <!-- Company Information -->
+                <div class="section">
+                    <h3 class="section-title">Company Information</h3>
+                    
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Company Name <span class="required">*</span></label>
+                            <input type="text" id="companyName" required>
+                            <span class="error-message" id="error-companyName"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>BC Number <span class="required">*</span></label>
+                            <input type="text" id="bcNumber" required>
+                            <span class="error-message" id="error-bcNumber"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="partialPeriod">
+                            <span>Carried on for only part of the Financial Period</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Declaration Type -->
+                <div class="section">
+                    <h3 class="section-title">Declaration Type</h3>
+                    
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="declarationType" value="entity_conducting" checked required>
+                            <span>Entity Conducting a Relevant Activity</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="declarationType" value="provisional">
+                            <span>Provisional Treatment Application</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="declarationType" value="non_residence">
+                            <span>Claim of Non-Residence</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="declarationType" value="not_conducting">
+                            <span>Entity not Conducting a Relevant Activity</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Gross Income -->
+                <div class="section">
+                    <h3 class="section-title">Gross Income</h3>
+                    
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Reporting Currency <span class="required">*</span></label>
+                            <select id="grossIncomeCurrency" required>
+                                <option value="">Select Currency</option>
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="GBP">GBP - British Pound</option>
+                                <option value="CAD">CAD - Canadian Dollar</option>
+                                <option value="AUD">AUD - Australian Dollar</option>
+                                <option value="JPY">JPY - Japanese Yen</option>
+                                <option value="CHF">CHF - Swiss Franc</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span class="error-message" id="error-grossIncomeCurrency"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Gross Income in Relation to Relevant Activity <span class="required">*</span></label>
+                            <input type="number" id="grossIncomeAmount" step="0.01" required>
+                            <span class="error-message" id="error-grossIncomeAmount"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Type of Gross Income <span class="required">*</span></label>
+                        <textarea id="grossIncomeType" rows="3" required></textarea>
+                        <span class="error-message" id="error-grossIncomeType"></span>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Net Book Value of Tangible Assets <span class="required">*</span></label>
+                            <input type="number" id="netBookValue" step="0.01" required>
+                            <span class="error-message" id="error-netBookValue"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Total Annual Gross Income <span class="required">*</span></label>
+                            <input type="number" id="totalAnnualGrossIncome" step="0.01" required>
+                            <span class="error-message" id="error-totalAnnualGrossIncome"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description of Assets</label>
+                        <textarea id="assetsDescription" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <!-- Direction and Management -->
+                <div class="section">
+                    <h3 class="section-title">Direction and Management</h3>
+                    
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Directed and Managed in BVI? <span class="required">*</span></label>
+                            <select id="directedInBVI" name="directedInBVI" required>
+                                <option value="">Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <span class="error-message" id="error-directedInBVI"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Minutes Kept in BVI? <span class="required">*</span></label>
+                            <select id="minutesInBVI" name="minutesInBVI" required>
+                                <option value="">Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <span class="error-message" id="error-minutesInBVI"></span>
+                        </div>
+                    </div>
+
+                    <div class="grid-3">
+                        <div class="form-group">
+                            <label>Number of Board Meetings <span class="required">*</span></label>
+                            <input type="number" id="numBoardMeetings" min="0" required>
+                            <span class="error-message" id="error-numBoardMeetings"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Board Meetings in BVI <span class="required">*</span></label>
+                            <input type="number" id="meetingsInBVI" min="0" required>
+                            <span class="error-message" id="error-meetingsInBVI"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Quorum of Board Meetings <span class="required">*</span></label>
+                            <input type="number" id="quorum" min="1" required>
+                            <span class="error-message" id="error-quorum"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Quorum of Directors Physically Present in the Virgin Islands? <span class="required">*</span></label>
+                        <select id="quorumPhysicallyPresent" name="quorumPhysicallyPresent" required>
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <span class="error-message" id="error-quorumPhysicallyPresent"></span>
+                    </div>
+
+                    <div class="subsection-title">Directors Responsible for Direction and Management</div>
+                    <div id="directorsContainer"></div>
+                    <button type="button" class="btn btn-primary" onclick="addDirector()">+ Add Director</button>
+                </div>
+
+
+
+                <!-- Expenditure -->
+                <div class="section">
+                    <h3 class="section-title">Expenditure</h3>
+                    
+                    <div class="form-group">
+                        <label>Reporting Currency <span class="required">*</span></label>
+                        <select id="expenditureCurrency" required>
+                            <option value="">Select Currency</option>
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="CAD">CAD - Canadian Dollar</option>
+                            <option value="AUD">AUD - Australian Dollar</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="CHF">CHF - Swiss Franc</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span class="error-message" id="error-expenditureCurrency"></span>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Total Expenditure <span class="required">*</span></label>
+                            <input type="number" id="totalExpenditure" step="0.01" required>
+                            <span class="error-message" id="error-totalExpenditure"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>BVI Expenditure <span class="required">*</span></label>
+                            <input type="number" id="bviExpenditure" step="0.01" required>
+                            <span class="error-message" id="error-bviExpenditure"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employees -->
+                <div class="section">
+                    <h3 class="section-title">Employees</h3>
+                    
+                    <div class="grid-3">
+                        <div class="form-group">
+                            <label>Total Employees <span class="required">*</span></label>
+                            <input type="number" id="totalEmployees" min="0" required>
+                            <span class="error-message" id="error-totalEmployees"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>BVI Employees <span class="required">*</span></label>
+                            <input type="number" id="bviEmployees" min="0" required>
+                            <span class="error-message" id="error-bviEmployees"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Employees Engaged in Activity <span class="required">*</span></label>
+                            <input type="number" id="employeesInActivity" min="0" required>
+                            <span class="error-message" id="error-employeesInActivity"></span>
+                        </div>
+                    </div>
+
+                    <div class="subsection-title">BVI Employee Details</div>
+                    <div id="bviEmployeesContainer"></div>
+                    <button type="button" class="btn btn-primary" onclick="addBVIEmployee()">+ Add BVI Employee</button>
+                </div>
+
+                <!-- Premises -->
+                <div class="section">
+                    <h3 class="section-title">Premises</h3>
+                    <div id="premisesContainer"></div>
+                    <button type="button" class="btn btn-primary" onclick="addPremise()">+ Add Premise</button>
+                </div>
+
+                <!-- Outsourcing -->
+                <div class="section">
+                    <h3 class="section-title">Outsourcing</h3>
+                    
+                    <div class="form-group">
+                        <label>CIGA Outsourced? <span class="required">*</span></label>
+                        <select id="cigaOutsourced" name="cigaOutsourced" required onchange="toggleOutsourcingDetails()">
+                            <option value="">Select</option>
+                            <option value="no" selected>No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                        <span class="error-message" id="error-cigaOutsourced"></span>
+                    </div>
+
+                    <div id="outsourcingDetails" style="display: none;">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Reporting Currency</label>
+                                <select id="outsourcingCurrency">
+                                    <option value="">Select Currency</option>
+                                    <option value="USD">USD - US Dollar</option>
+                                    <option value="EUR">EUR - Euro</option>
+                                    <option value="GBP">GBP - British Pound</option>
+                                    <option value="CAD">CAD - Canadian Dollar</option>
+                                    <option value="AUD">AUD - Australian Dollar</option>
+                                    <option value="JPY">JPY - Japanese Yen</option>
+                                    <option value="CHF">CHF - Swiss Franc</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Outsourcing Expenditure</label>
+                                <input type="number" id="outsourcingExpenditure" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CIGA Details -->
+                <div class="section">
+                    <h3 class="section-title">Core Income Generating Activities (CIGA)</h3>
+                    <div id="cigaContainer"></div>
+                    <button type="button" class="btn btn-primary" onclick="addCIGA()">+ Add CIGA</button>
+                </div>
+
+                <!-- Relevant Activities -->
+                <div class="section">
+                    <h3 class="section-title">Relevant Activity</h3>
+                    <div id="relevantActivityContainer"></div>
+                    <button type="button" class="btn btn-primary" onclick="addRelevantActivity()">+ Add Relevant Activity</button>
+                </div>
+
+                <!-- Beneficial Owner Details -->
+                <div class="section">
+                    <h3 class="section-title">Beneficial Owner Details</h3>
+                    <div id="beneficialOwnersContainer"></div>
+                    <button type="button" class="btn btn-primary" onclick="addBeneficialOwner()">+ Add Beneficial Owner</button>
+                </div>
+
+                <!-- Supporting Comments -->
+                <div class="section">
+                    <h3 class="section-title">Supporting Comments</h3>
+                    <div class="form-group">
+                        <label>Additional Comments or Information</label>
+                        <textarea id="supportingComments" rows="5" placeholder="Provide any additional relevant information..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Supporting Documents Checklist -->
+                <div class="section">
+                    <h3 class="section-title">Supporting Documents Checklist</h3>
+                    
+                    <div class="note-box">
+                        <strong>📎 Important:</strong> Please attach all relevant supporting documents to your email when submitting this completed form to Bethel Worldwide Corporation.
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_financial_statements">
+                            <span><strong>Financial statements</strong> for the reporting period</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_board_minutes">
+                            <span><strong>Board meeting minutes</strong> held in the BVI</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_employee_records">
+                            <span><strong>Employee records</strong> and qualifications for BVI employees</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_premises_evidence">
+                            <span><strong>Evidence of premises</strong> in the BVI (lease agreements, utility bills)</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_expenditure_proof">
+                            <span><strong>Proof of expenditure</strong> in the BVI (invoices, receipts)</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_outsourcing_agreements">
+                            <span><strong>Outsourcing agreements</strong> (if CIGA was outsourced)</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_organizational_chart">
+                            <span><strong>Organizational chart</strong> showing management structure</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_tax_residency">
+                            <span><strong>Tax residency certificate</strong> (if claiming non-residence)</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="doc_other">
+                            <span><strong>Other supporting documents</strong> as relevant to the declaration</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Remarks / Additional Document Notes</label>
+                        <textarea id="documentRemarks" rows="3" placeholder="List any additional documents or notes..."></textarea>
+                    </div>
+
+                    <div class="agreement-box">
+                        <strong>Document Submission Confirmation</strong>
+                        <div class="agreement-checkbox">
+                            <input type="checkbox" id="confirm_documents_attached" required>
+                            <label for="confirm_documents_attached">
+                                I confirm that I will attach all relevant supporting documents listed above when submitting this declaration to Bethel Worldwide Corporation via email. <span class="required">*</span>
+                            </label>
+                        </div>
+                        <span class="error-message" id="error-confirm_documents"></span>
+                    </div>
+                </div>
+
+                <!-- Agent Details -->
+                <div class="section">
+                    <h3 class="section-title">Agent Details</h3>
+                    <div class="info-box">
+                        <strong>Registered Agent:</strong> Bethel Worldwide Corporation<br>
+                        <strong>Address:</strong> Bethel House, P.O. Box 4749, Road Town, Tortola, British Virgin Islands
+                    </div>
+                </div>
+
+                <!-- Declaration and Signature -->
+                <div class="section">
+                    <h3 class="section-title">Declaration</h3>
+                    
+                    <div class="warning-box">
+                        <strong>Declaration:</strong> I hereby certify that I am duly authorized to act on behalf of the Company to complete this Economic Substance Declaration. 
+                        I confirm that the information provided is true and correct to the best of my knowledge and belief.
+                    </div>
+
+                    <div class="form-group">
+                        <label>Director's Name <span class="required">*</span></label>
+                        <input type="text" id="directorName" required>
+                        <span class="error-message" id="error-directorName"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date <span class="required">*</span></label>
+                        <input type="date" id="declarationDate" required>
+                        <span class="error-message" id="error-declarationDate"></span>
+                    </div>
+
+                    <!-- Digital Signature -->
+                    <div class="form-group">
+                        <label>Director's Digital Signature <span class="required">*</span></label>
+                        <div class="info-box">
+                            <strong>📝 About Digital Signatures:</strong> Your digital signature has the same legal validity as a handwritten signature. 
+                            You can either draw your signature using your mouse/touchscreen or upload an image of your signature.
+                        </div>
+                        
+                        <div class="signature-container">
+                            <div class="signature-tabs">
+                                <button type="button" class="signature-tab active" onclick="switchSignatureTab('draw')">
+                                    ✍️ Draw Signature
+                                </button>
+                                <button type="button" class="signature-tab" onclick="switchSignatureTab('upload')">
+                                    📤 Upload Image
+                                </button>
+                            </div>
+
+                            <div id="drawPanel" class="signature-panel active">
+                                <p style="margin-bottom: 10px; color: #666; font-size: 14px;">Draw your signature in the box below:</p>
+                                <canvas id="signatureCanvas" width="500" height="200"></canvas>
+                                <div class="canvas-controls">
+                                    <button type="button" class="btn btn-secondary" onclick="clearSignature()">Clear</button>
+                                    <button type="button" class="btn btn-primary" onclick="saveDrawnSignature()">Save Signature</button>
+                                </div>
+                            </div>
+
+                            <div id="uploadPanel" class="signature-panel">
+                                <p style="margin-bottom: 10px; color: #666; font-size: 14px;">Upload an image of your signature (PNG, JPG, or JPEG):</p>
+                                <input type="file" id="signatureUpload" accept="image/png,image/jpeg,image/jpg">
+                                <label for="signatureUpload" class="file-upload-label">📁 Choose File</label>
+                                <p style="margin-top: 10px; font-size: 13px; color: #666;">For best results, use a clear image with a white background.</p>
+                            </div>
+
+                            <div id="signaturePreview" class="signature-preview">
+                                <div class="signature-preview-header">
+                                    <span style="color: #059669; font-weight: 600;">✓ Signature Captured</span>
+                                    <button type="button" class="btn btn-secondary" onclick="clearSavedSignature()" style="padding: 6px 12px; font-size: 14px;">Change</button>
+                                </div>
+                                <img id="signatureImage" src="" alt="Your Signature">
+                            </div>
+                        </div>
+                        <span class="error-message" id="error-signature"></span>
+                    </div>
+
+                    <div class="agreement-box">
+                        <strong>Electronic Signature Agreement</strong>
+                        <div class="agreement-checkbox">
+                            <input type="checkbox" id="signatureAgreement" required>
+                            <label for="signatureAgreement">
+                                I agree that my digital signature above is the legal equivalent of my manual/handwritten signature and I consent to be legally bound by this electronic signature. <span class="required">*</span>
+                            </label>
+                        </div>
+                        <span class="error-message" id="error-agreement"></span>
+                    </div>
+
+                    <div class="note-box">
+                        <strong>Note:</strong> After downloading the PDF with your digital signature, please return it to Bethel Worldwide Corporation via email along with all supporting documents.
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="submit-section">
+                    <button type="submit" class="btn-submit">Download Economic Substance Declaration (PDF)</button>
+                    <p class="submit-note">* Indicates required field</p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; <span id="currentYear"></span> Bethel Worldwide Corporation. All rights reserved.</p>
+            <p>Bethel House, P.O. Box 4749, Road Town, Tortola, British Virgin Islands</p>
+        </div>
+    </div>
+
+    <script>
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Signature variables
+        let signatureDataURL = null;
+
+        // Arrays for dynamic sections
+        let directors = [];
+        let bviEmployees = [];
+        let premises = [];
+        let cigas = [];
+        let relevantActivities = [];
+        let beneficialOwners = [];
+
+        // Canvas setup
+        const canvas = document.getElementById('signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        // Drawing functions
+        function startDrawing(e) {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            if (e.type === 'mousedown') {
+                lastX = (e.clientX - rect.left) * scaleX;
+                lastY = (e.clientY - rect.top) * scaleY;
+            } else if (e.type === 'touchstart') {
+                e.preventDefault();
+                lastX = (e.touches[0].clientX - rect.left) * scaleX;
+                lastY = (e.touches[0].clientY - rect.top) * scaleY;
+            }
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            let currentX, currentY;
+            
+            if (e.type === 'mousemove') {
+                currentX = (e.clientX - rect.left) * scaleX;
+                currentY = (e.clientY - rect.top) * scaleY;
+            } else if (e.type === 'touchmove') {
+                e.preventDefault();
+                currentX = (e.touches[0].clientX - rect.left) * scaleX;
+                currentY = (e.touches[0].clientY - rect.top) * scaleY;
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(currentX, currentY);
+            ctx.stroke();
+            lastX = currentX;
+            lastY = currentY;
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDrawing);
+
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function saveDrawnSignature() {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            let isEmpty = true;
+            for (let i = 0; i < data.length; i += 4) {
+                if (data[i + 3] !== 0) {
+                    isEmpty = false;
+                    break;
+                }
+            }
+            if (isEmpty) {
+                alert('Please draw your signature before saving.');
+                return;
+            }
+            signatureDataURL = canvas.toDataURL();
+            document.getElementById('signatureImage').src = signatureDataURL;
+            document.getElementById('signaturePreview').classList.add('active');
+        }
+
+        function clearSavedSignature() {
+            signatureDataURL = null;
+            document.getElementById('signaturePreview').classList.remove('active');
+            clearSignature();
+        }
+
+        document.getElementById('signatureUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            if (!file.type.match('image/(png|jpeg|jpg)')) {
+                alert('Please upload a PNG or JPEG image.');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                signatureDataURL = event.target.result;
+                document.getElementById('signatureImage').src = signatureDataURL;
+                document.getElementById('signaturePreview').classList.add('active');
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function switchSignatureTab(tab) {
+            const tabs = document.querySelectorAll('.signature-tab');
+            const panels = document.querySelectorAll('.signature-panel');
+            tabs.forEach(t => t.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
+            if (tab === 'draw') {
+                tabs[0].classList.add('active');
+                document.getElementById('drawPanel').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('uploadPanel').classList.add('active');
+            }
+        }
+
+        function toggleOutsourcingDetails() {
+            const outsourced = document.getElementById('cigaOutsourced').value === 'yes';
+            document.getElementById('outsourcingDetails').style.display = outsourced ? 'block' : 'none';
+        }
+
+        // Dynamic section functions
+        function addDirector() {
+            const index = directors.length;
+            directors.push({});
+            const container = document.getElementById('directorsContainer');
+            const div = document.createElement('div');
+            div.className = 'array-item';
+            div.innerHTML = `
+                <div class="array-item-header">
+                    <div class="array-item-title">Director ${index + 1}</div>
+                    ${index > 0 ? `<button type="button" class="btn btn-danger" onclick="removeDirector(${index})">Remove</button>` : ''}
+                </div>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" data-director="${index}" data-field="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Resident in Virgin Islands?</label>
+                        <select data-director="${index}" data-field="resident">
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Relation to Entity</label>
+                        <input type="text" data-director="${index}" data-field="relation" placeholder="e.g., Director">
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeDirector(index) {
+            const container = document.getElementById('directorsContainer');
+            container.children[index].remove();
+            directors[index] = null;
+        }
+
+
+
+        function addBVIEmployee() {
+            const index = bviEmployees.length;
+            bviEmployees.push({});
+            const container = document.getElementById('bviEmployeesContainer');
+            const div = document.createElement('div');
+            div.className = 'array-item';
+            div.innerHTML = `
+                <div class="array-item-header">
+                    <div class="array-item-title">BVI Employee ${index + 1}</div>
+                    ${index > 0 ? `<button type="button" class="btn btn-danger" onclick="removeBVIEmployee(${index})">Remove</button>` : ''}
+                </div>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>Employee Name</label>
+                        <input type="text" data-bviemployee="${index}" data-field="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Qualification</label>
+                        <input type="text" data-bviemployee="${index}" data-field="qualification">
+                    </div>
+                    <div class="form-group">
+                        <label>Years of Relevant Experience</label>
+                        <input type="number" data-bviemployee="${index}" data-field="experience" min="0">
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeBVIEmployee(index) {
+            const container = document.getElementById('bviEmployeesContainer');
+            container.children[index].remove();
+            bviEmployees[index] = null;
+        }
+
+        function addPremise() {
+            const index = premises.length;
+            premises.push({});
+            const container = document.getElementById('premisesContainer');
+            const div = document.createElement('div');
+            div.className = 'array-item';
+            div.innerHTML = `
+                <div class="array-item-header">
+                    <div class="array-item-title">Premise ${index + 1}</div>
+                    ${index > 0 ? `<button type="button" class="btn btn-danger" onclick="removePremise(${index})">Remove</button>` : ''}
+                </div>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>Address Line 1</label>
+                        <input type="text" data-premise="${index}" data-field="address1">
+                    </div>
+                    <div class="form-group">
+                        <label>Address Line 2</label>
+                        <input type="text" data-premise="${index}" data-field="address2">
+                    </div>
+                    <div class="form-group">
+                        <label>Country</label>
+                        <select data-premise="${index}" data-field="country">
+                            <option value="">Select Country</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Andorra">Andorra</option>
+                            <option value="Angola">Angola</option>
+                            <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Armenia">Armenia</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Azerbaijan">Azerbaijan</option>
+                            <option value="Bahamas">Bahamas</option>
+                            <option value="Bahrain">Bahrain</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Barbados">Barbados</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Belize">Belize</option>
+                            <option value="Benin">Benin</option>
+                            <option value="Bhutan">Bhutan</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                            <option value="Botswana">Botswana</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Brunei">Brunei</option>
+                            <option value="Bulgaria">Bulgaria</option>
+                            <option value="Burkina Faso">Burkina Faso</option>
+                            <option value="Burundi">Burundi</option>
+                            <option value="Cabo Verde">Cabo Verde</option>
+                            <option value="Cambodia">Cambodia</option>
+                            <option value="Cameroon">Cameroon</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Central African Republic">Central African Republic</option>
+                            <option value="Chad">Chad</option>
+                            <option value="Chile">Chile</option>
+                            <option value="China">China</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Comoros">Comoros</option>
+                            <option value="Congo">Congo</option>
+                            <option value="Costa Rica">Costa Rica</option>
+                            <option value="Croatia">Croatia</option>
+                            <option value="Cuba">Cuba</option>
+                            <option value="Cyprus">Cyprus</option>
+                            <option value="Czech Republic">Czech Republic</option>
+                            <option value="Democratic Republic of the Congo">Democratic Republic of the Congo</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Djibouti">Djibouti</option>
+                            <option value="Dominica">Dominica</option>
+                            <option value="Dominican Republic">Dominican Republic</option>
+                            <option value="East Timor">East Timor</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="El Salvador">El Salvador</option>
+                            <option value="Equatorial Guinea">Equatorial Guinea</option>
+                            <option value="Eritrea">Eritrea</option>
+                            <option value="Estonia">Estonia</option>
+                            <option value="Eswatini">Eswatini</option>
+                            <option value="Ethiopia">Ethiopia</option>
+                            <option value="Fiji">Fiji</option>
+                            <option value="Finland">Finland</option>
+                            <option value="France">France</option>
+                            <option value="Gabon">Gabon</option>
+                            <option value="Gambia">Gambia</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Greece">Greece</option>
+                            <option value="Grenada">Grenada</option>
+                            <option value="Guatemala">Guatemala</option>
+                            <option value="Guinea">Guinea</option>
+                            <option value="Guinea-Bissau">Guinea-Bissau</option>
+                            <option value="Guyana">Guyana</option>
+                            <option value="Haiti">Haiti</option>
+                            <option value="Honduras">Honduras</option>
+                            <option value="Hungary">Hungary</option>
+                            <option value="Iceland">Iceland</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Iran">Iran</option>
+                            <option value="Iraq">Iraq</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="Israel">Israel</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Ivory Coast">Ivory Coast</option>
+                            <option value="Jamaica">Jamaica</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Jordan">Jordan</option>
+                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="Kenya">Kenya</option>
+                            <option value="Kiribati">Kiribati</option>
+                            <option value="Kosovo">Kosovo</option>
+                            <option value="Kuwait">Kuwait</option>
+                            <option value="Kyrgyzstan">Kyrgyzstan</option>
+                            <option value="Laos">Laos</option>
+                            <option value="Latvia">Latvia</option>
+                            <option value="Lebanon">Lebanon</option>
+                            <option value="Lesotho">Lesotho</option>
+                            <option value="Liberia">Liberia</option>
+                            <option value="Libya">Libya</option>
+                            <option value="Liechtenstein">Liechtenstein</option>
+                            <option value="Lithuania">Lithuania</option>
+                            <option value="Luxembourg">Luxembourg</option>
+                            <option value="Madagascar">Madagascar</option>
+                            <option value="Malawi">Malawi</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Maldives">Maldives</option>
+                            <option value="Mali">Mali</option>
+                            <option value="Malta">Malta</option>
+                            <option value="Marshall Islands">Marshall Islands</option>
+                            <option value="Mauritania">Mauritania</option>
+                            <option value="Mauritius">Mauritius</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Micronesia">Micronesia</option>
+                            <option value="Moldova">Moldova</option>
+                            <option value="Monaco">Monaco</option>
+                            <option value="Mongolia">Mongolia</option>
+                            <option value="Montenegro">Montenegro</option>
+                            <option value="Morocco">Morocco</option>
+                            <option value="Mozambique">Mozambique</option>
+                            <option value="Myanmar">Myanmar</option>
+                            <option value="Namibia">Namibia</option>
+                            <option value="Nauru">Nauru</option>
+                            <option value="Nepal">Nepal</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="Nicaragua">Nicaragua</option>
+                            <option value="Niger">Niger</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="North Korea">North Korea</option>
+                            <option value="North Macedonia">North Macedonia</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Oman">Oman</option>
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="Palau">Palau</option>
+                            <option value="Palestine">Palestine</option>
+                            <option value="Panama">Panama</option>
+                            <option value="Papua New Guinea">Papua New Guinea</option>
+                            <option value="Paraguay">Paraguay</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Philippines">Philippines</option>
+                            <option value="Poland">Poland</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="Qatar">Qatar</option>
+                            <option value="Romania">Romania</option>
+                            <option value="Russia">Russia</option>
+                            <option value="Rwanda">Rwanda</option>
+                            <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                            <option value="Saint Lucia">Saint Lucia</option>
+                            <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
+                            <option value="Samoa">Samoa</option>
+                            <option value="San Marino">San Marino</option>
+                            <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Senegal">Senegal</option>
+                            <option value="Serbia">Serbia</option>
+                            <option value="Seychelles">Seychelles</option>
+                            <option value="Sierra Leone">Sierra Leone</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="Slovakia">Slovakia</option>
+                            <option value="Slovenia">Slovenia</option>
+                            <option value="Solomon Islands">Solomon Islands</option>
+                            <option value="Somalia">Somalia</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="South Sudan">South Sudan</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Sri Lanka">Sri Lanka</option>
+                            <option value="Sudan">Sudan</option>
+                            <option value="Suriname">Suriname</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Syria">Syria</option>
+                            <option value="Taiwan">Taiwan</option>
+                            <option value="Tajikistan">Tajikistan</option>
+                            <option value="Tanzania">Tanzania</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Togo">Togo</option>
+                            <option value="Tonga">Tonga</option>
+                            <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                            <option value="Tunisia">Tunisia</option>
+                            <option value="Turkey">Turkey</option>
+                            <option value="Turkmenistan">Turkmenistan</option>
+                            <option value="Tuvalu">Tuvalu</option>
+                            <option value="Uganda">Uganda</option>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="United States">United States</option>
+                            <option value="Uruguay">Uruguay</option>
+                            <option value="Uzbekistan">Uzbekistan</option>
+                            <option value="Vanuatu">Vanuatu</option>
+                            <option value="Vatican City">Vatican City</option>
+                            <option value="Venezuela">Venezuela</option>
+                            <option value="Vietnam">Vietnam</option>
+                            <option value="Virgin Islands, British">Virgin Islands, British</option>
+                            <option value="Yemen">Yemen</option>
+                            <option value="Zambia">Zambia</option>
+                            <option value="Zimbabwe">Zimbabwe</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function removePremise(index) {
+            const container = document.getElementById('premisesContainer');
+            container.children[index].remove();
+            premises[index] = null;
+        }
+
+        function addCIGA() {
+            const index = cigas.length;
+            cigas.push({});
+            const container = document.getElementById('cigaContainer');
+            const div = document.createElement('div');
+            div.className = 'array-item';
+            div.innerHTML = `
+                <div class="array-item-header">
+                    <div class="array-item-title">CIGA ${index + 1}</div>
+                    ${index > 0 ? `<button type="button" class="btn btn-danger" onclick="removeCIGA(${index})">Remove</button>` : ''}
+                </div>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>CIGA Code</label>
+                        <input type="text" data-ciga="${index}" data-field="code">
+                    </div>
+                    <div class="form-group">
+                        <label>CIGA Description</label>
+                        <input type="text" data-ciga="${index}" data-field="description">
+                    </div>
+                    <div class="form-group">
+                        <label>Other (text)</label>
+                        <input type="text" data-ciga="${index}" data-field="other">
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeCIGA(index) {
+            const container = document.getElementById('cigaContainer');
+            container.children[index].remove();
+            cigas[index] = null;
+        }
+
+        function addRelevantActivity() {
+            const index = relevantActivities.length;
+            relevantActivities.push({});
+            const container = document.getElementById('relevantActivityContainer');
+            const div = document.createElement('div');
+            div.className = 'array-item';
+            div.innerHTML = `
+                <div class="array-item-header">
+                    <div class="array-item-title">Relevant Activity ${index + 1}</div>
+                    ${index > 0 ? `<button type="button" class="btn btn-danger" onclick="removeRelevantActivity(${index})">Remove</button>` : ''}
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Activity Name</label>
+                        <input type="text" data-activity="${index}" data-field="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Partial Period?</label>
+                        <select data-activity="${index}" data-field="partial">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Activity Start Date</label>
+                        <input type="date" data-activity="${index}" data-field="startDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Activity End Date</label>
+                        <input type="date" data-activity="${index}" data-field="endDate">
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeRelevantActivity(index) {
+            const container = document.getElementById('relevantActivityContainer');
+            container.children[index].remove();
+            relevantActivities[index] = null;
+        }
+
+        function addBeneficialOwner() {
+            const index = beneficialOwners.length;
+            beneficialOwners.push({});
+            const container = document.getElementById('beneficialOwnersContainer');
+            const div = document.createElement('div');
+            div.className = 'array-item';
+            div.innerHTML = `
+                <div class="array-item-header">
+                    <div class="array-item-title">Beneficial Owner ${index + 1}</div>
+                    ${index > 0 ? `<button type="button" class="btn btn-danger" onclick="removeBeneficialOwner(${index})">Remove</button>` : ''}
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" data-beneficialowner="${index}" data-field="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" data-beneficialowner="${index}" data-field="dob">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Jurisdiction of Tax Residence</label>
+                        <select data-beneficialowner="${index}" data-field="taxJurisdiction">
+                            <option value="">Select Country</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Andorra">Andorra</option>
+                            <option value="Angola">Angola</option>
+                            <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Armenia">Armenia</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Azerbaijan">Azerbaijan</option>
+                            <option value="Bahamas">Bahamas</option>
+                            <option value="Bahrain">Bahrain</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Barbados">Barbados</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Belize">Belize</option>
+                            <option value="Benin">Benin</option>
+                            <option value="Bhutan">Bhutan</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                            <option value="Botswana">Botswana</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Brunei">Brunei</option>
+                            <option value="Bulgaria">Bulgaria</option>
+                            <option value="Burkina Faso">Burkina Faso</option>
+                            <option value="Burundi">Burundi</option>
+                            <option value="Cabo Verde">Cabo Verde</option>
+                            <option value="Cambodia">Cambodia</option>
+                            <option value="Cameroon">Cameroon</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Central African Republic">Central African Republic</option>
+                            <option value="Chad">Chad</option>
+                            <option value="Chile">Chile</option>
+                            <option value="China">China</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Comoros">Comoros</option>
+                            <option value="Congo">Congo</option>
+                            <option value="Costa Rica">Costa Rica</option>
+                            <option value="Croatia">Croatia</option>
+                            <option value="Cuba">Cuba</option>
+                            <option value="Cyprus">Cyprus</option>
+                            <option value="Czech Republic">Czech Republic</option>
+                            <option value="Democratic Republic of the Congo">Democratic Republic of the Congo</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Djibouti">Djibouti</option>
+                            <option value="Dominica">Dominica</option>
+                            <option value="Dominican Republic">Dominican Republic</option>
+                            <option value="East Timor">East Timor</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="El Salvador">El Salvador</option>
+                            <option value="Equatorial Guinea">Equatorial Guinea</option>
+                            <option value="Eritrea">Eritrea</option>
+                            <option value="Estonia">Estonia</option>
+                            <option value="Eswatini">Eswatini</option>
+                            <option value="Ethiopia">Ethiopia</option>
+                            <option value="Fiji">Fiji</option>
+                            <option value="Finland">Finland</option>
+                            <option value="France">France</option>
+                            <option value="Gabon">Gabon</option>
+                            <option value="Gambia">Gambia</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Greece">Greece</option>
+                            <option value="Grenada">Grenada</option>
+                            <option value="Guatemala">Guatemala</option>
+                            <option value="Guinea">Guinea</option>
+                            <option value="Guinea-Bissau">Guinea-Bissau</option>
+                            <option value="Guyana">Guyana</option>
+                            <option value="Haiti">Haiti</option>
+                            <option value="Honduras">Honduras</option>
+                            <option value="Hungary">Hungary</option>
+                            <option value="Iceland">Iceland</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Iran">Iran</option>
+                            <option value="Iraq">Iraq</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="Israel">Israel</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Ivory Coast">Ivory Coast</option>
+                            <option value="Jamaica">Jamaica</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Jordan">Jordan</option>
+                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="Kenya">Kenya</option>
+                            <option value="Kiribati">Kiribati</option>
+                            <option value="Kosovo">Kosovo</option>
+                            <option value="Kuwait">Kuwait</option>
+                            <option value="Kyrgyzstan">Kyrgyzstan</option>
+                            <option value="Laos">Laos</option>
+                            <option value="Latvia">Latvia</option>
+                            <option value="Lebanon">Lebanon</option>
+                            <option value="Lesotho">Lesotho</option>
+                            <option value="Liberia">Liberia</option>
+                            <option value="Libya">Libya</option>
+                            <option value="Liechtenstein">Liechtenstein</option>
+                            <option value="Lithuania">Lithuania</option>
+                            <option value="Luxembourg">Luxembourg</option>
+                            <option value="Madagascar">Madagascar</option>
+                            <option value="Malawi">Malawi</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Maldives">Maldives</option>
+                            <option value="Mali">Mali</option>
+                            <option value="Malta">Malta</option>
+                            <option value="Marshall Islands">Marshall Islands</option>
+                            <option value="Mauritania">Mauritania</option>
+                            <option value="Mauritius">Mauritius</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Micronesia">Micronesia</option>
+                            <option value="Moldova">Moldova</option>
+                            <option value="Monaco">Monaco</option>
+                            <option value="Mongolia">Mongolia</option>
+                            <option value="Montenegro">Montenegro</option>
+                            <option value="Morocco">Morocco</option>
+                            <option value="Mozambique">Mozambique</option>
+                            <option value="Myanmar">Myanmar</option>
+                            <option value="Namibia">Namibia</option>
+                            <option value="Nauru">Nauru</option>
+                            <option value="Nepal">Nepal</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="Nicaragua">Nicaragua</option>
+                            <option value="Niger">Niger</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="North Korea">North Korea</option>
+                            <option value="North Macedonia">North Macedonia</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Oman">Oman</option>
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="Palau">Palau</option>
+                            <option value="Palestine">Palestine</option>
+                            <option value="Panama">Panama</option>
+                            <option value="Papua New Guinea">Papua New Guinea</option>
+                            <option value="Paraguay">Paraguay</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Philippines">Philippines</option>
+                            <option value="Poland">Poland</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="Qatar">Qatar</option>
+                            <option value="Romania">Romania</option>
+                            <option value="Russia">Russia</option>
+                            <option value="Rwanda">Rwanda</option>
+                            <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                            <option value="Saint Lucia">Saint Lucia</option>
+                            <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
+                            <option value="Samoa">Samoa</option>
+                            <option value="San Marino">San Marino</option>
+                            <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Senegal">Senegal</option>
+                            <option value="Serbia">Serbia</option>
+                            <option value="Seychelles">Seychelles</option>
+                            <option value="Sierra Leone">Sierra Leone</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="Slovakia">Slovakia</option>
+                            <option value="Slovenia">Slovenia</option>
+                            <option value="Solomon Islands">Solomon Islands</option>
+                            <option value="Somalia">Somalia</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="South Sudan">South Sudan</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Sri Lanka">Sri Lanka</option>
+                            <option value="Sudan">Sudan</option>
+                            <option value="Suriname">Suriname</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Syria">Syria</option>
+                            <option value="Taiwan">Taiwan</option>
+                            <option value="Tajikistan">Tajikistan</option>
+                            <option value="Tanzania">Tanzania</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Togo">Togo</option>
+                            <option value="Tonga">Tonga</option>
+                            <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                            <option value="Tunisia">Tunisia</option>
+                            <option value="Turkey">Turkey</option>
+                            <option value="Turkmenistan">Turkmenistan</option>
+                            <option value="Tuvalu">Tuvalu</option>
+                            <option value="Uganda">Uganda</option>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="United States">United States</option>
+                            <option value="Uruguay">Uruguay</option>
+                            <option value="Uzbekistan">Uzbekistan</option>
+                            <option value="Vanuatu">Vanuatu</option>
+                            <option value="Vatican City">Vatican City</option>
+                            <option value="Venezuela">Venezuela</option>
+                            <option value="Vietnam">Vietnam</option>
+                            <option value="Virgin Islands, British">Virgin Islands, British</option>
+                            <option value="Yemen">Yemen</option>
+                            <option value="Zambia">Zambia</option>
+                            <option value="Zimbabwe">Zimbabwe</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" data-beneficialowner="${index}" data-field="startDate">
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeBeneficialOwner(index) {
+            const container = document.getElementById('beneficialOwnersContainer');
+            container.children[index].remove();
+            beneficialOwners[index] = null;
+        }
+
+        // Initialize with one of each
+        window.addEventListener('DOMContentLoaded', () => {
+            addDirector();
+            addPremise();
+            addCIGA();
+            addRelevantActivity();
+            addBeneficialOwner();
+        });
+
+        // Form submission
+        document.getElementById('economicSubstanceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+
+            let isValid = true;
+
+            // Validate required fields
+            const requiredFields = [
+                'companyName', 'bcNumber', 'grossIncomeCurrency', 'grossIncomeAmount',
+                'grossIncomeType', 'netBookValue', 'totalAnnualGrossIncome',
+                'numBoardMeetings', 'meetingsInBVI', 'quorum',
+                'expenditureCurrency', 'totalExpenditure', 'bviExpenditure',
+                'totalEmployees', 'bviEmployees', 'employeesInActivity',
+                'directorName', 'declarationDate'
+            ];
+
+            requiredFields.forEach(field => {
+                const el = document.getElementById(field);
+                if (!el || !el.value.trim()) {
+                    isValid = false;
+                    const errorEl = document.getElementById(`error-${field}`);
+                    if (errorEl) errorEl.textContent = 'This field is required';
+                    if (el) el.classList.add('error');
+                }
+            });
+
+            // Validate radio buttons and dropdowns
+            const radioGroups = ['declarationType'];
+            radioGroups.forEach(group => {
+                if (!document.querySelector(`input[name="${group}"]:checked`)) {
+                    isValid = false;
+                    const errorEl = document.getElementById(`error-${group}`);
+                    if (errorEl) errorEl.textContent = 'Please select an option';
+                }
+            });
+
+            // Validate yes/no dropdowns
+            const yesNoFields = ['directedInBVI', 'minutesInBVI', 'quorumPhysicallyPresent', 'cigaOutsourced'];
+            yesNoFields.forEach(field => {
+                const el = document.getElementById(field);
+                if (!el || !el.value) {
+                    isValid = false;
+                    const errorEl = document.getElementById(`error-${field}`);
+                    if (errorEl) errorEl.textContent = 'Please select an option';
+                    if (el) el.classList.add('error');
+                }
+            });
+
+            // Validate signature
+            if (!signatureDataURL) {
+                isValid = false;
+                document.getElementById('error-signature').textContent = 'Please provide your digital signature';
+            }
+
+            // Validate signature agreement
+            if (!document.getElementById('signatureAgreement').checked) {
+                isValid = false;
+                document.getElementById('error-agreement').textContent = 'You must agree to the electronic signature terms';
+            }
+
+            // Validate documents confirmation
+            if (!document.getElementById('confirm_documents_attached').checked) {
+                isValid = false;
+                document.getElementById('error-confirm_documents').textContent = 'You must confirm that you will attach supporting documents';
+            }
+
+            if (!isValid) {
+                alert('Please fill in all required fields marked with * and provide your digital signature');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            // Generate PDF
+            generatePDF();
+        });
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const pageWidth = doc.internal.pageSize.width;
+            const pageHeight = doc.internal.pageSize.height;
+            const margin = 20;
+            const lineHeight = 6;
+            let yPosition = margin;
+
+            function addText(text, x, y, maxWidth, options = {}) {
+                const lines = doc.splitTextToSize(text, maxWidth);
+                lines.forEach((line, index) => {
+                    if (y + (index * lineHeight) > pageHeight - margin) {
+                        doc.addPage();
+                        y = margin;
+                    }
+                    doc.text(line, x, y + (index * lineHeight), options);
+                });
+                return y + (lines.length * lineHeight);
+            }
+
+            // Header
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('ECONOMIC SUBSTANCE DECLARATION', margin, yPosition, pageWidth - 2 * margin, { align: 'center' });
+            yPosition += 3;
+            doc.setFontSize(14);
+            yPosition = addText('DISTRIBUTION AND SERVICE CENTRE BUSINESS', margin, yPosition, pageWidth - 2 * margin, { align: 'center' });
+            yPosition += 10;
+
+            // Company Info
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            const companyName = document.getElementById('companyName').value;
+            const bcNumber = document.getElementById('bcNumber').value;
+            
+            yPosition = addText(`Company: ${companyName}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`BC Number: ${bcNumber}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+
+            // Declaration Type
+            const declarationType = document.querySelector('input[name="declarationType"]:checked').value;
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('DECLARATION TYPE', margin, yPosition, pageWidth - 2 * margin);
+            doc.setFont(undefined, 'normal');
+            yPosition = addText(declarationType.replace(/_/g, ' ').toUpperCase(), margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+
+            // Gross Income
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('GROSS INCOME', margin, yPosition, pageWidth - 2 * margin);
+            doc.setFont(undefined, 'normal');
+            const currency = document.getElementById('grossIncomeCurrency').value;
+            const amount = document.getElementById('grossIncomeAmount').value;
+            yPosition = addText(`Amount: ${currency} ${amount}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+
+            // Add signature
+            if (signatureDataURL) {
+                if (yPosition + 30 > pageHeight - margin) {
+                    doc.addPage();
+                    yPosition = margin;
+                }
+                doc.setFont(undefined, 'bold');
+                yPosition = addText('DECLARATION', margin, yPosition, pageWidth - 2 * margin);
+                yPosition += 3;
+                doc.setFont(undefined, 'normal');
+                yPosition = addText(`Director: ${document.getElementById('directorName').value}`, margin, yPosition, pageWidth - 2 * margin);
+                yPosition += 5;
+                doc.addImage(signatureDataURL, 'PNG', margin, yPosition, 60, 20);
+                yPosition += 22;
+                yPosition = addText(`Date: ${document.getElementById('declarationDate').value}`, margin, yPosition, pageWidth - 2 * margin);
+                yPosition += 3;
+                yPosition = addText('(Digitally Signed)', margin, yPosition, pageWidth - 2 * margin);
+            }
+
+            // Footer
+            yPosition = pageHeight - margin - 10;
+            doc.setFontSize(8);
+            doc.setFont(undefined, 'normal');
+            doc.text('Bethel Worldwide Corporation', margin, yPosition);
+            doc.text('Bethel House, P.O. Box 4749, Road Town, Tortola, BVI', margin, yPosition + 4);
+
+            // Save PDF
+            const fileName = `Economic_Substance_Declaration_${companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+            doc.save(fileName);
+        }
+    </script>
+</body>
+</html>
