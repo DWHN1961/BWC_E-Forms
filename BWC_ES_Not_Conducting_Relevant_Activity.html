@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Substance Declaration | Bethel Worldwide Corporation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5986 100%);
+            padding: 40px 20px;
+            font-family: 'Crimson Pro', Georgia, serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2d5986 0%, #1e3a5f 100%);
+            padding: 40px;
+            color: white;
+            text-align: center;
+            border-bottom: 4px solid #d4af37;
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .header h2 {
+            margin: 10px 0 0 0;
+            font-size: 18px;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #1e3a5f;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 8px;
+            font-family: 'Playfair Display', Georgia, serif;
+            text-transform: uppercase;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            color: #2d5986;
+            margin: 20px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2d5986;
+        }
+
+        input.error,
+        select.error,
+        textarea.error {
+            border-color: #dc2626;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .info-box {
+            background-color: #dbeafe;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #60a5fa;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .fixed-field {
+            background-color: #f3f4f6;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+            color: #4b5563;
+        }
+
+        .person-block {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background-color: #f9fafb;
+        }
+
+        .person-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d1d5db;
+        }
+
+        .person-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d5986;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: #2d5986;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e3a5f;
+        }
+
+        .btn-secondary {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 3px solid #d4af37;
+        }
+
+        .btn-submit {
+            padding: 16px 48px;
+            background-color: #2d5986;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-submit:hover {
+            background-color: #1e3a5f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .submit-note {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer {
+            background-color: #f3f4f6;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .form-content {
+                padding: 20px;
+            }
+
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Bethel Worldwide Corporation</h1>
+            <h2>Economic Substance Declaration</h2>
+            <p style="margin-top: 10px; font-size: 16px;">Company Not Conducting Relevant Activity</p>
+        </div>
+
+        <!-- Form Content -->
+        <div class="form-content">
+            <form id="esForm">
+                
+                <!-- Save/Resume Controls -->
+                <div style="background-color: #e0f2fe; border: 2px solid #0284c7; border-radius: 8px; padding: 20px; margin-bottom: 35px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <p style="margin: 0 0 5px 0; font-weight: 600; color: #075985; font-size: 16px;">💾 Auto-Save Progress</p>
+                            <p id="saveStatus" style="margin: 0; color: #075985; font-size: 14px;">Your progress is automatically saved every 30 seconds. You can also save manually.</p>
+                            <p id="lastSavedTime" style="margin: 5px 0 0 0; color: #0369a1; font-size: 13px; font-style: italic;"></p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="button" class="btn btn-secondary" onclick="saveFormProgress()" style="white-space: nowrap;">Save Progress</button>
+                            <button type="button" class="btn btn-secondary" onclick="clearSavedProgress()" style="white-space: nowrap;">Clear Saved Data</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Period -->
+                <div class="section">
+                    <h3 class="section-title">Financial Period</h3>
+                    
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Financial Period Start Date <span class="required">*</span></label>
+                            <input type="date" id="periodStartDate" required>
+                            <span class="error-message" id="error-periodStartDate"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Financial Period End Date <span class="required">*</span></label>
+                            <input type="date" id="periodEndDate" required>
+                            <span class="error-message" id="error-periodEndDate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Entity Information -->
+                <div class="section">
+                    <h3 class="section-title">Entity Information</h3>
+                    
+                    <div class="form-group">
+                        <label>Entity Name <span class="required">*</span></label>
+                        <input type="text" id="entityName" placeholder="Enter entity name" required>
+                        <span class="error-message" id="error-entityName"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Entity Number <span class="required">*</span></label>
+                        <input type="text" id="entityNumber" placeholder="Enter entity number" required>
+                        <span class="error-message" id="error-entityNumber"></span>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Entity Status</label>
+                            <div class="fixed-field">Active</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Entity Type</label>
+                            <div class="fixed-field">BC New Incorporation</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date of Incorporation <span class="required">*</span></label>
+                        <input type="date" id="incorporationDate" required>
+                        <span class="error-message" id="error-incorporationDate"></span>
+                    </div>
+
+                    <div class="subsection-title">Registered Office Address</div>
+                    <div class="fixed-field">
+                        Bethel House<br>
+                        P.O. Box 4749<br>
+                        Road Town<br>
+                        Tortola<br>
+                        VG1110<br>
+                        British Virgin Islands
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label><strong>Business Address is the same as the Registered Office Address?</strong></label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="sameAddress" value="yes" onchange="toggleBusinessAddress()">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="sameAddress" value="no" onchange="toggleBusinessAddress()">
+                                <span>No</span>
+                            </label>
+                        </div>
+                        <span class="error-message" id="error-sameAddress"></span>
+                    </div>
+
+                    <div id="businessAddressFields" style="display: none;">
+                        <div class="subsection-title">Business Address</div>
+                        <div class="form-group">
+                            <label>Address <span class="required">*</span></label>
+                            <input type="text" id="businessAddress" placeholder="Address line 1">
+                            <span class="error-message" id="error-businessAddress"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Street</label>
+                            <input type="text" id="businessStreet" placeholder="Street">
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>City <span class="required">*</span></label>
+                                <input type="text" id="businessCity" placeholder="City">
+                                <span class="error-message" id="error-businessCity"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>State/Province</label>
+                                <input type="text" id="businessState" placeholder="State/Province">
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Postal Code</label>
+                                <input type="text" id="businessPostal" placeholder="Postal Code">
+                            </div>
+                            <div class="form-group">
+                                <label>Country <span class="required">*</span></label>
+                                <select id="businessCountry">
+                                    <option value="">Select Country</option>
+                                </select>
+                                <span class="error-message" id="error-businessCountry"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2" style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label>Tax Identification No. (TIN)</label>
+                            <input type="text" id="tin" placeholder="Enter TIN">
+                        </div>
+                        <div class="form-group">
+                            <label>Issued by (TIN)</label>
+                            <select id="tinCountry">
+                                <option value="">Select Country</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid-3">
+                        <div class="form-group">
+                            <label>Other Identification No.</label>
+                            <input type="text" id="otherIdNo" placeholder="Enter ID number">
+                        </div>
+                        <div class="form-group">
+                            <label>ID Type</label>
+                            <input type="text" id="otherIdType" placeholder="Enter ID type">
+                        </div>
+                        <div class="form-group">
+                            <label>Issued by</label>
+                            <select id="otherIdCountry">
+                                <option value="">Select Country</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>Is the entity part of a MNE Group?</strong></label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="mneGroup" value="yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="mneGroup" value="no">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>Does the entity have an ultimate parent entity?</strong></label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="ultimateParent" value="yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="ultimateParent" value="no">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>Does the entity have an immediate parent entity?</strong></label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="immediateParent" value="yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="immediateParent" value="no">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agent Details -->
+                <div class="section">
+                    <h3 class="section-title">Agent Details</h3>
+                    
+                    <div class="form-group">
+                        <label>Agent Name</label>
+                        <div class="fixed-field">Bethel Worldwide Corporation</div>
+                    </div>
+
+                    <div class="subsection-title">Agent Address</div>
+                    <div class="fixed-field">
+                        Bethel House<br>
+                        P.O. Box 4749<br>
+                        Road Town<br>
+                        Tortola<br>
+                        VG1110<br>
+                        British Virgin Islands
+                    </div>
+                </div>
+
+                <!-- Beneficial Owner Details -->
+                <div class="section">
+                    <h3 class="section-title">Beneficial Owner Details</h3>
+                    
+                    <div class="info-box">
+                        <strong>Note:</strong> At least one beneficial owner is required. You can add multiple beneficial owners using the "+ Add Another Beneficial Owner" button.
+                    </div>
+
+                    <div id="beneficialOwnersContainer"></div>
+                    
+                    <button type="button" class="btn btn-primary" onclick="addBeneficialOwner()">+ Add Another Beneficial Owner</button>
+                </div>
+
+                <!-- Economic Substance Declaration -->
+                <div class="section">
+                    <h3 class="section-title">Economic Substance Declaration</h3>
+                    
+                    <div class="form-group">
+                        <label>Declaration Type <span class="required">*</span></label>
+                        <select id="declarationType" required>
+                            <option value="">Select Declaration Type</option>
+                            <option value="Entity Conducting a Relevant Activity">Entity Conducting a Relevant Activity</option>
+                            <option value="Provisional Treatment Application">Provisional Treatment Application</option>
+                            <option value="Claim Non-Residence">Claim Non-Residence</option>
+                            <option value="Entity not Conducting a Relevant Activity">Entity not Conducting a Relevant Activity</option>
+                        </select>
+                        <span class="error-message" id="error-declarationType"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description of the activities of the corporate and legal entity <span class="required">*</span></label>
+                        <textarea id="entityActivities" rows="5" placeholder="Please describe the activities of the entity..." required></textarea>
+                        <span class="error-message" id="error-entityActivities"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Supporting Comments</label>
+                        <textarea id="supportingComments" rows="4" placeholder="Please provide any supporting comments..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Supporting Documents and Remarks -->
+                <div class="section">
+                    <div class="info-box" style="background-color:#fff9e6;border-color:#f59e0b;">
+                        <p style="margin:0;"><strong>📎 Supporting Documents:</strong> Please attach any supporting documents to your email sharing the completed form with Bethel Worldwide Corporation.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Remarks</label>
+                        <textarea id="remarks" rows="4" placeholder="Enter any additional remarks..."></textarea>
+                    </div>
+
+                    <div class="info-box" style="background-color:#fef3c7;border-color:#fbbf24;margin-top:10px;">
+                        <p style="margin:0;"><strong>Note:</strong> These comments will have no legal implications and will not form any part of the Entity's profile.</p>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="submit-section">
+                    <button type="submit" class="btn-submit">Download the Declaration (PDF) and email pdf to Bethel Worldwide Corporation</button>
+                    <p class="submit-note">* Indicates required field</p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Bethel Worldwide Corporation</strong></p>
+            <p>Bethel House, P.O. Box 4749, Road Town, Tortola, VG1110, British Virgin Islands</p>
+            <p>For assistance, please contact your Bethel Worldwide Corporation representative</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize arrays
+        const beneficialOwners = [];
+
+        // Country list (195 countries)
+        const countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","East Timor","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
+
+        // Populate country dropdowns
+        function populateCountryDropdown(selectElement) {
+            countries.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                selectElement.appendChild(option);
+            });
+        }
+
+        // Initialize country dropdowns on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            populateCountryDropdown(document.getElementById('businessCountry'));
+            populateCountryDropdown(document.getElementById('tinCountry'));
+            populateCountryDropdown(document.getElementById('otherIdCountry'));
+            
+            // Try to load saved progress first
+            const hasLoadedData = loadFormProgress();
+            
+            // If no saved data, add first beneficial owner by default
+            if (!hasLoadedData) {
+                addBeneficialOwner();
+            }
+        });
+
+        // Toggle business address fields
+        function toggleBusinessAddress() {
+            const sameAddress = document.querySelector('input[name="sameAddress"]:checked');
+            const businessFields = document.getElementById('businessAddressFields');
+            
+            if (sameAddress && sameAddress.value === 'no') {
+                businessFields.style.display = 'block';
+            } else {
+                businessFields.style.display = 'none';
+            }
+        }
+
+        // Add beneficial owner
+        function addBeneficialOwner() {
+            const index = beneficialOwners.length;
+            beneficialOwners.push({});
+            const container = document.getElementById('beneficialOwnersContainer');
+            const div = document.createElement('div');
+            div.className = 'person-block';
+            div.innerHTML = `
+                <div class="person-header">
+                    <div class="person-title">Beneficial Owner ${index + 1}</div>
+                    ${index > 0 ? `<button type="button" class="btn btn-danger" onclick="removeBeneficialOwner(${index})">Remove</button>` : ''}
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>First Name <span class="required">*</span></label>
+                        <input type="text" data-bo="${index}" data-field="firstName" placeholder="Enter first name">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name <span class="required">*</span></label>
+                        <input type="text" data-bo="${index}" data-field="lastName" placeholder="Enter last name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Date of Birth <span class="required">*</span></label>
+                    <input type="date" data-bo="${index}" data-field="dob">
+                </div>
+                <div class="form-group">
+                    <label>BO Type <span class="required">*</span></label>
+                    <select data-bo="${index}" data-field="boType">
+                        <option value="">Select Type</option>
+                        <option value="Legal Arrangement – Other – Beneficiary – Equivalent">Legal Arrangement – Other – Beneficiary – Equivalent</option>
+                        <option value="Legal Arrangement – Other – Other – Equivalent">Legal Arrangement – Other – Other – Equivalent</option>
+                        <option value="Legal Arrangement – Other – Protector – Equivalent">Legal Arrangement – Other – Protector – Equivalent</option>
+                        <option value="Legal Arrangement – Other – Settlor – Equivalent">Legal Arrangement – Other – Settlor – Equivalent</option>
+                        <option value="Legal Arrangement – Other – Trustee – Equivalent">Legal Arrangement – Other – Trustee – Equivalent</option>
+                        <option value="Legal Arrangement – Trust – Beneficiary">Legal Arrangement – Trust – Beneficiary</option>
+                        <option value="Legal Arrangement – Trust – Protector">Legal Arrangement – Trust – Protector</option>
+                        <option value="Legal Arrangement – Trust – Trustee">Legal Arrangement – Trust – Trustee</option>
+                        <option value="Legal Arrangement – Trust – Settlor">Legal Arrangement – Trust – Settlor</option>
+                        <option value="Legal Person – Other Means">Legal Person – Other Means</option>
+                        <option value="Legal Person – Ownership">Legal Person – Ownership</option>
+                        <option value="Legal Person – Senior Managing Official">Legal Person – Senior Managing Official</option>
+                    </select>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Start Date <span class="required">*</span></label>
+                        <input type="date" data-bo="${index}" data-field="startDate">
+                    </div>
+                    <div class="form-group">
+                        <label>End Date (If Applicable)</label>
+                        <input type="date" data-bo="${index}" data-field="endDate">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Taxpayer Identification No.</label>
+                        <input type="text" data-bo="${index}" data-field="taxId" placeholder="Enter tax ID">
+                    </div>
+                    <div class="form-group">
+                        <label>Issued By</label>
+                        <select data-bo="${index}" data-field="taxIdCountry">
+                            <option value="">Select Country</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="subsection-title">Address</div>
+                <div class="form-group">
+                    <label>Address <span class="required">*</span></label>
+                    <input type="text" data-bo="${index}" data-field="address" placeholder="Address line 1">
+                </div>
+                <div class="form-group">
+                    <label>Street</label>
+                    <input type="text" data-bo="${index}" data-field="street" placeholder="Street">
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>City <span class="required">*</span></label>
+                        <input type="text" data-bo="${index}" data-field="city" placeholder="City">
+                    </div>
+                    <div class="form-group">
+                        <label>State/Province</label>
+                        <input type="text" data-bo="${index}" data-field="state" placeholder="State/Province">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Postal Code</label>
+                        <input type="text" data-bo="${index}" data-field="postal" placeholder="Postal Code">
+                    </div>
+                    <div class="form-group">
+                        <label>Country <span class="required">*</span></label>
+                        <select data-bo="${index}" data-field="country">
+                            <option value="">Select Country</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Jurisdiction of Tax Residence <span class="required">*</span></label>
+                    <select data-bo="${index}" data-field="taxResidence">
+                        <option value="">Select Country</option>
+                    </select>
+                </div>
+            `;
+            container.appendChild(div);
+            
+            // Populate country dropdowns for this BO
+            const taxIdCountrySelect = div.querySelector(`select[data-bo="${index}"][data-field="taxIdCountry"]`);
+            const countrySelect = div.querySelector(`select[data-bo="${index}"][data-field="country"]`);
+            const taxResidenceSelect = div.querySelector(`select[data-bo="${index}"][data-field="taxResidence"]`);
+            
+            populateCountryDropdown(taxIdCountrySelect);
+            populateCountryDropdown(countrySelect);
+            populateCountryDropdown(taxResidenceSelect);
+        }
+
+        // Remove beneficial owner
+        function removeBeneficialOwner(index) {
+            const container = document.getElementById('beneficialOwnersContainer');
+            container.children[index].remove();
+            beneficialOwners[index] = null;
+        }
+
+        // Save form progress
+        function saveFormProgress() {
+            try {
+                const formData = {
+                    timestamp: new Date().toISOString(),
+                    simpleFields: {},
+                    dynamicCounts: {
+                        beneficialOwners: beneficialOwners.length
+                    },
+                    boFields: {}
+                };
+
+                // Save all simple input fields
+                document.querySelectorAll('input[type="text"], input[type="date"], textarea, select').forEach(el => {
+                    if (el.id) {
+                        formData.simpleFields[el.id] = el.value;
+                    }
+                    
+                    // Save BO fields with data attributes
+                    const boIndex = el.getAttribute('data-bo');
+                    const boField = el.getAttribute('data-field');
+                    if (boIndex !== null && boField) {
+                        const key = `bo${boIndex}_${boField}`;
+                        formData.boFields[key] = el.value;
+                    }
+                });
+
+                // Save radio button selections
+                document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+                    formData.simpleFields[el.name + '_radio'] = el.value;
+                });
+
+                // Save to localStorage
+                localStorage.setItem('esDeclarationForm', JSON.stringify(formData));
+
+                // Update UI
+                const now = new Date();
+                document.getElementById('lastSavedTime').textContent = 'Last saved: ' + now.toLocaleString();
+                document.getElementById('saveStatus').textContent = '✓ Progress saved successfully!';
+                document.getElementById('saveStatus').style.color = '#047857';
+
+                setTimeout(() => {
+                    document.getElementById('saveStatus').textContent = 'Your progress is automatically saved every 30 seconds. You can also save manually.';
+                    document.getElementById('saveStatus').style.color = '#075985';
+                }, 3000);
+            } catch (e) {
+                alert('Error saving progress: ' + e.message);
+            }
+        }
+
+        // Load form progress
+        function loadFormProgress() {
+            try {
+                const saved = localStorage.getItem('esDeclarationForm');
+                if (!saved) return false;
+
+                const formData = JSON.parse(saved);
+
+                // Restore simple fields
+                for (const [id, value] of Object.entries(formData.simpleFields)) {
+                    if (id.endsWith('_radio')) {
+                        // Restore radio button
+                        const radioName = id.replace('_radio', '');
+                        const radios = document.querySelectorAll(`input[name="${radioName}"]`);
+                        radios.forEach(radio => {
+                            if (radio.value === value) {
+                                radio.checked = true;
+                                // Trigger change event for business address toggle
+                                if (radioName === 'sameAddress') {
+                                    toggleBusinessAddress();
+                                }
+                            }
+                        });
+                    } else {
+                        // Restore text/date/select fields
+                        const el = document.getElementById(id);
+                        if (el) el.value = value;
+                    }
+                }
+
+                // Restore beneficial owners
+                if (formData.dynamicCounts && formData.dynamicCounts.beneficialOwners >= 1) {
+                    // Clear container
+                    const container = document.getElementById('beneficialOwnersContainer');
+                    container.innerHTML = '';
+                    beneficialOwners.length = 0;
+
+                    // Re-add the correct number of BOs
+                    for (let i = 0; i < formData.dynamicCounts.beneficialOwners; i++) {
+                        addBeneficialOwner();
+                    }
+
+                    // Restore BO field values
+                    setTimeout(() => {
+                        if (formData.boFields) {
+                            for (const [key, value] of Object.entries(formData.boFields)) {
+                                // Parse key like "bo0_firstName"
+                                const match = key.match(/^bo(\d+)_(.+)$/);
+                                if (match) {
+                                    const boIndex = match[1];
+                                    const fieldName = match[2];
+                                    const field = document.querySelector(`[data-bo="${boIndex}"][data-field="${fieldName}"]`);
+                                    if (field) {
+                                        field.value = value;
+                                    }
+                                }
+                            }
+                        }
+                    }, 100);
+                }
+
+                // Update last saved time
+                const savedDate = new Date(formData.timestamp);
+                document.getElementById('lastSavedTime').textContent = 'Last saved: ' + savedDate.toLocaleString();
+                document.getElementById('saveStatus').textContent = '✓ Previous progress loaded successfully!';
+                document.getElementById('saveStatus').style.color = '#047857';
+
+                setTimeout(() => {
+                    document.getElementById('saveStatus').textContent = 'Your progress is automatically saved every 30 seconds. You can also save manually.';
+                    document.getElementById('saveStatus').style.color = '#075985';
+                }, 5000);
+
+                return true;
+            } catch (e) {
+                console.error('Error loading progress:', e);
+                return false;
+            }
+        }
+
+        // Clear saved progress
+        function clearSavedProgress() {
+            if (confirm('Are you sure you want to clear all saved progress? This cannot be undone.')) {
+                localStorage.removeItem('esDeclarationForm');
+                document.getElementById('lastSavedTime').textContent = '';
+                document.getElementById('saveStatus').textContent = 'Saved data cleared. Start fresh!';
+                document.getElementById('saveStatus').style.color = '#dc2626';
+
+                setTimeout(() => {
+                    document.getElementById('saveStatus').textContent = 'Your progress is automatically saved every 30 seconds. You can also save manually.';
+                    document.getElementById('saveStatus').style.color = '#075985';
+                }, 3000);
+
+                location.reload();
+            }
+        }
+
+        // Auto-save every 30 seconds
+        setInterval(saveFormProgress, 30000);
+
+        // Form submission
+        document.getElementById('esForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+
+            let isValid = true;
+
+            // Validate required fields
+            const requiredFields = ['periodStartDate', 'periodEndDate', 'entityName', 'entityNumber', 'incorporationDate', 'declarationType', 'entityActivities'];
+
+            requiredFields.forEach(field => {
+                const el = document.getElementById(field);
+                if (!el || !el.value.trim()) {
+                    isValid = false;
+                    const errorEl = document.getElementById(`error-${field}`);
+                    if (errorEl) errorEl.textContent = 'This field is required';
+                    if (el) el.classList.add('error');
+                }
+            });
+
+            // Validate same address selection
+            const sameAddress = document.querySelector('input[name="sameAddress"]:checked');
+            if (!sameAddress) {
+                isValid = false;
+                document.getElementById('error-sameAddress').textContent = 'Please select an option';
+            }
+
+            // Validate business address if different
+            if (sameAddress && sameAddress.value === 'no') {
+                const businessAddressFields = ['businessAddress', 'businessCity', 'businessCountry'];
+                businessAddressFields.forEach(field => {
+                    const el = document.getElementById(field);
+                    if (!el || !el.value.trim()) {
+                        isValid = false;
+                        const errorEl = document.getElementById(`error-${field}`);
+                        if (errorEl) errorEl.textContent = 'This field is required';
+                        if (el) el.classList.add('error');
+                    }
+                });
+            }
+
+            // Validate beneficial owners
+            let hasCompleteBO = false;
+            beneficialOwners.forEach((bo, idx) => {
+                if (bo !== null) {
+                    const firstName = document.querySelector(`input[data-bo="${idx}"][data-field="firstName"]`);
+                    const lastName = document.querySelector(`input[data-bo="${idx}"][data-field="lastName"]`);
+                    const dob = document.querySelector(`input[data-bo="${idx}"][data-field="dob"]`);
+                    const boType = document.querySelector(`select[data-bo="${idx}"][data-field="boType"]`);
+                    const startDate = document.querySelector(`input[data-bo="${idx}"][data-field="startDate"]`);
+                    const address = document.querySelector(`input[data-bo="${idx}"][data-field="address"]`);
+                    const city = document.querySelector(`input[data-bo="${idx}"][data-field="city"]`);
+                    const country = document.querySelector(`select[data-bo="${idx}"][data-field="country"]`);
+                    const taxResidence = document.querySelector(`select[data-bo="${idx}"][data-field="taxResidence"]`);
+                    
+                    if (firstName && lastName && dob && boType && startDate && address && city && country && taxResidence &&
+                        firstName.value.trim() && lastName.value.trim() && dob.value && boType.value && 
+                        startDate.value && address.value.trim() && city.value.trim() && 
+                        country.value && taxResidence.value) {
+                        hasCompleteBO = true;
+                    }
+                }
+            });
+            
+            if (!hasCompleteBO) {
+                isValid = false;
+                alert('Please complete at least one beneficial owner with all required fields (First Name, Last Name, Date of Birth, BO Type, Start Date, Address, City, Country, and Jurisdiction of Tax Residence)');
+            }
+
+            if (!isValid) {
+                alert('Please fill in all required fields marked with *');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            // Generate PDF
+            generatePDF();
+        });
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const pageWidth = doc.internal.pageSize.width;
+            const pageHeight = doc.internal.pageSize.height;
+            const margin = 20;
+            const lineHeight = 6;
+            let yPosition = margin;
+
+            function addText(text, x, y, maxWidth) {
+                const lines = doc.splitTextToSize(text, maxWidth);
+                lines.forEach((line, index) => {
+                    if (y + (index * lineHeight) > pageHeight - margin) {
+                        doc.addPage();
+                        y = margin;
+                    }
+                    doc.text(line, x, y + (index * lineHeight));
+                });
+                return y + (lines.length * lineHeight);
+            }
+
+            // Title
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('ECONOMIC SUBSTANCE DECLARATION', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 3;
+            doc.setFontSize(12);
+            yPosition = addText('Company Not Conducting Relevant Activity', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 10;
+
+            // Financial Period
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('FINANCIAL PERIOD', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            yPosition = addText(`Start Date: ${document.getElementById('periodStartDate').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`End Date: ${document.getElementById('periodEndDate').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 8;
+
+            // Entity Information
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('ENTITY INFORMATION', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            yPosition = addText(`Entity Name: ${document.getElementById('entityName').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Entity Number: ${document.getElementById('entityNumber').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Entity Status: Active`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Entity Type: BC New Incorporation`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Date of Incorporation: ${document.getElementById('incorporationDate').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+            yPosition = addText('Registered Office Address:', margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText('Bethel House, P.O. Box 4749, Road Town, Tortola, VG1110, British Virgin Islands', margin + 5, yPosition, pageWidth - 2 * margin - 5);
+            yPosition += 5;
+
+            // Business Address
+            const sameAddress = document.querySelector('input[name="sameAddress"]:checked');
+            if (sameAddress && sameAddress.value === 'no') {
+                yPosition = addText('Business Address:', margin, yPosition, pageWidth - 2 * margin);
+                let businessAddr = document.getElementById('businessAddress').value;
+                if (document.getElementById('businessStreet').value) businessAddr += ', ' + document.getElementById('businessStreet').value;
+                if (document.getElementById('businessCity').value) businessAddr += ', ' + document.getElementById('businessCity').value;
+                if (document.getElementById('businessState').value) businessAddr += ', ' + document.getElementById('businessState').value;
+                if (document.getElementById('businessPostal').value) businessAddr += ', ' + document.getElementById('businessPostal').value;
+                businessAddr += ', ' + document.getElementById('businessCountry').value;
+                yPosition = addText(businessAddr, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                yPosition += 5;
+            } else {
+                yPosition = addText('Business Address: Same as Registered Office Address', margin, yPosition, pageWidth - 2 * margin);
+                yPosition += 5;
+            }
+
+            if (document.getElementById('tin').value) {
+                yPosition = addText(`TIN: ${document.getElementById('tin').value} (Issued by: ${document.getElementById('tinCountry').value || 'N/A'})`, margin, yPosition, pageWidth - 2 * margin);
+            }
+            if (document.getElementById('otherIdNo').value) {
+                yPosition = addText(`Other ID: ${document.getElementById('otherIdNo').value} (Type: ${document.getElementById('otherIdType').value || 'N/A'}, Issued by: ${document.getElementById('otherIdCountry').value || 'N/A'})`, margin, yPosition, pageWidth - 2 * margin);
+            }
+            yPosition += 5;
+
+            const mneGroup = document.querySelector('input[name="mneGroup"]:checked');
+            if (mneGroup) yPosition = addText(`Part of MNE Group: ${mneGroup.value.toUpperCase()}`, margin, yPosition, pageWidth - 2 * margin);
+            
+            const ultimateParent = document.querySelector('input[name="ultimateParent"]:checked');
+            if (ultimateParent) yPosition = addText(`Has Ultimate Parent Entity: ${ultimateParent.value.toUpperCase()}`, margin, yPosition, pageWidth - 2 * margin);
+            
+            const immediateParent = document.querySelector('input[name="immediateParent"]:checked');
+            if (immediateParent) yPosition = addText(`Has Immediate Parent Entity: ${immediateParent.value.toUpperCase()}`, margin, yPosition, pageWidth - 2 * margin);
+            
+            yPosition += 8;
+
+            // Agent Details
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('AGENT DETAILS', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            yPosition = addText('Agent Name: Bethel Worldwide Corporation', margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText('Agent Address: Bethel House, P.O. Box 4749, Road Town, Tortola, VG1110, British Virgin Islands', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 8;
+
+            // Beneficial Owners
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('BENEFICIAL OWNERS', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+
+            beneficialOwners.forEach((bo, idx) => {
+                if (bo !== null) {
+                    const firstName = document.querySelector(`input[data-bo="${idx}"][data-field="firstName"]`)?.value || '';
+                    const lastName = document.querySelector(`input[data-bo="${idx}"][data-field="lastName"]`)?.value || '';
+                    const dob = document.querySelector(`input[data-bo="${idx}"][data-field="dob"]`)?.value || '';
+                    const boType = document.querySelector(`select[data-bo="${idx}"][data-field="boType"]`)?.value || '';
+                    const startDate = document.querySelector(`input[data-bo="${idx}"][data-field="startDate"]`)?.value || '';
+                    const endDate = document.querySelector(`input[data-bo="${idx}"][data-field="endDate"]`)?.value || '';
+                    const taxId = document.querySelector(`input[data-bo="${idx}"][data-field="taxId"]`)?.value || '';
+                    const taxIdCountry = document.querySelector(`select[data-bo="${idx}"][data-field="taxIdCountry"]`)?.value || '';
+                    const address = document.querySelector(`input[data-bo="${idx}"][data-field="address"]`)?.value || '';
+                    const street = document.querySelector(`input[data-bo="${idx}"][data-field="street"]`)?.value || '';
+                    const city = document.querySelector(`input[data-bo="${idx}"][data-field="city"]`)?.value || '';
+                    const state = document.querySelector(`input[data-bo="${idx}"][data-field="state"]`)?.value || '';
+                    const postal = document.querySelector(`input[data-bo="${idx}"][data-field="postal"]`)?.value || '';
+                    const country = document.querySelector(`select[data-bo="${idx}"][data-field="country"]`)?.value || '';
+                    const taxResidence = document.querySelector(`select[data-bo="${idx}"][data-field="taxResidence"]`)?.value || '';
+
+                    if (firstName && lastName) {
+                        if (yPosition > pageHeight - 60) {
+                            doc.addPage();
+                            yPosition = margin;
+                        }
+
+                        doc.setFont(undefined, 'bold');
+                        yPosition = addText(`Beneficial Owner ${idx + 1}:`, margin, yPosition, pageWidth - 2 * margin);
+                        yPosition += 3;
+                        doc.setFont(undefined, 'normal');
+                        yPosition = addText(`Name: ${firstName} ${lastName}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                        yPosition = addText(`Date of Birth: ${dob}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                        yPosition = addText(`BO Type: ${boType}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                        yPosition = addText(`Start Date: ${startDate}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                        if (endDate) yPosition = addText(`End Date: ${endDate}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                        if (taxId) yPosition = addText(`Tax ID: ${taxId} (Issued by: ${taxIdCountry})`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                        
+                        let boAddress = address;
+                        if (street) boAddress += ', ' + street;
+                        if (city) boAddress += ', ' + city;
+                        if (state) boAddress += ', ' + state;
+                        if (postal) boAddress += ', ' + postal;
+                        boAddress += ', ' + country;
+                        yPosition = addText(`Address: ${boAddress}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                        yPosition = addText(`Tax Residence: ${taxResidence}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                        yPosition += 5;
+                    }
+                }
+            });
+
+            // Economic Substance Declaration
+            if (yPosition > pageHeight - 60) {
+                doc.addPage();
+                yPosition = margin;
+            }
+            yPosition += 3;
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('ECONOMIC SUBSTANCE DECLARATION', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            
+            const declarationType = document.getElementById('declarationType').value;
+            yPosition = addText(`Declaration Type: ${declarationType}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+            
+            const entityActivities = document.getElementById('entityActivities').value;
+            yPosition = addText('Description of Activities:', margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(entityActivities, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+            yPosition += 5;
+            
+            const supportingComments = document.getElementById('supportingComments').value;
+            if (supportingComments) {
+                yPosition = addText('Supporting Comments:', margin, yPosition, pageWidth - 2 * margin);
+                yPosition = addText(supportingComments, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                yPosition += 5;
+            }
+
+            // Remarks
+            const remarks = document.getElementById('remarks').value;
+            if (remarks) {
+                if (yPosition > pageHeight - 40) {
+                    doc.addPage();
+                    yPosition = margin;
+                }
+                doc.setFont(undefined, 'bold');
+                yPosition = addText('REMARKS', margin, yPosition, pageWidth - 2 * margin);
+                yPosition += 3;
+                doc.setFont(undefined, 'normal');
+                yPosition = addText(remarks, margin, yPosition, pageWidth - 2 * margin);
+                doc.setFontSize(8);
+                doc.setFont(undefined, 'italic');
+                yPosition += 3;
+                yPosition = addText('(Note: These comments have no legal implications and do not form part of the Entity\'s profile)', margin, yPosition, pageWidth - 2 * margin);
+            }
+
+            // Save PDF
+            const fileName = `ES_Declaration_${document.getElementById('entityName').value.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+            doc.save(fileName);
+        }
+    </script>
+</body>
+</html>
