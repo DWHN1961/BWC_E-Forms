@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form | Bethel Worldwide Corporation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5986 100%);
+            padding: 40px 20px;
+            font-family: 'Crimson Pro', Georgia, serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2d5986 0%, #1e3a5f 100%);
+            padding: 40px;
+            color: white;
+            text-align: center;
+            border-bottom: 4px solid #d4af37;
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .header h2 {
+            margin: 10px 0 0 0;
+            font-size: 20px;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #1e3a5f;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 8px;
+            font-family: 'Playfair Display', Georgia, serif;
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2d5986;
+        }
+
+        input.error,
+        select.error,
+        textarea.error {
+            border-color: #dc2626;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .conditional-section {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            background-color: #f9fafb;
+            display: none;
+        }
+
+        .conditional-section.active {
+            display: block;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            color: #2d5986;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .signature-container {
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9fafb;
+        }
+
+        .signature-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .signature-tab {
+            flex: 1;
+            padding: 10px 20px;
+            background-color: #e5e7eb;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .signature-tab.active {
+            background-color: #2d5986;
+            color: white;
+        }
+
+        .signature-panel {
+            display: none;
+        }
+
+        .signature-panel.active {
+            display: block;
+        }
+
+        canvas {
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            cursor: crosshair;
+            background-color: white;
+            width: 100%;
+            max-width: 500px;
+            height: 150px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: #2d5986;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e3a5f;
+        }
+
+        .btn-secondary {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+
+        .agreement-checkbox {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fef3c7;
+            border: 2px solid #fbbf24;
+            border-radius: 6px;
+        }
+
+        .agreement-checkbox input[type="checkbox"] {
+            margin-top: 3px;
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .agreement-checkbox label {
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 3px solid #d4af37;
+        }
+
+        .btn-submit {
+            padding: 16px 48px;
+            background-color: #2d5986;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-submit:hover {
+            background-color: #1e3a5f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .submit-note {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .info-box {
+            background-color: #dbeafe;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #60a5fa;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .footer {
+            background-color: #f3f4f6;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .form-content {
+                padding: 20px;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            canvas {
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Bethel Worldwide Corporation</h1>
+            <h2>Contact Form</h2>
+        </div>
+
+        <!-- Form Content -->
+        <div class="form-content">
+            <form id="contactForm">
+                
+                <!-- Company Information -->
+                <div class="section">
+                    <h3 class="section-title">Company Information</h3>
+                    
+                    <div class="form-group">
+                        <label>Date <span class="required">*</span></label>
+                        <input type="date" id="formDate" required>
+                        <span class="error-message" id="error-formDate"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Company Name <span class="required">*</span></label>
+                        <input type="text" id="companyName" placeholder="Enter company name" required>
+                        <span class="error-message" id="error-companyName"></span>
+                    </div>
+                </div>
+
+                <!-- Contact Person(s) Authorised to give Instructions -->
+                <div class="section">
+                    <h3 class="section-title">Contact Person(s) Authorised to give Instructions on the Company's Behalf</h3>
+                    
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>First Name <span class="required">*</span></label>
+                            <input type="text" id="contactFirstName" placeholder="First name" required>
+                            <span class="error-message" id="error-contactFirstName"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last Name <span class="required">*</span></label>
+                            <input type="text" id="contactLastName" placeholder="Last name" required>
+                            <span class="error-message" id="error-contactLastName"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Occupation <span class="required">*</span></label>
+                        <input type="text" id="contactOccupation" placeholder="Occupation" required>
+                        <span class="error-message" id="error-contactOccupation"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone <span class="required">*</span></label>
+                        <div style="display: grid; grid-template-columns: 120px 1fr; gap: 10px;">
+                            <select id="contactDialCode" required>
+                                <option value="">Code</option>
+                                <option value="+1">+1 (USA/Canada)</option>
+                                <option value="+44">+44 (UK)</option>
+                                <option value="+971">+971 (UAE)</option>
+                                <option value="+91">+91 (India)</option>
+                                <option value="+86">+86 (China)</option>
+                                <option value="+61">+61 (Australia)</option>
+                                <option value="+33">+33 (France)</option>
+                                <option value="+49">+49 (Germany)</option>
+                                <option value="+81">+81 (Japan)</option>
+                                <option value="+65">+65 (Singapore)</option>
+                                <option value="+1284">+1284 (BVI)</option>
+                            </select>
+                            <input type="text" id="contactPhone" placeholder="Phone number" required>
+                        </div>
+                        <span class="error-message" id="error-contactPhone"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" id="contactEmail" placeholder="Email address" required>
+                        <span class="error-message" id="error-contactEmail"></span>
+                    </div>
+
+                    <div class="subsection-title">Address</div>
+                    <div class="form-group">
+                        <label>Address <span class="required">*</span></label>
+                        <input type="text" id="contactAddress" placeholder="Address line 1" required>
+                        <span class="error-message" id="error-contactAddress"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Street</label>
+                        <input type="text" id="contactStreet" placeholder="Street">
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>City <span class="required">*</span></label>
+                            <input type="text" id="contactCity" placeholder="City" required>
+                            <span class="error-message" id="error-contactCity"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>State/Province</label>
+                            <input type="text" id="contactState" placeholder="State/Province">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Postal Code</label>
+                            <input type="text" id="contactPostal" placeholder="Postal Code">
+                        </div>
+                        <div class="form-group">
+                            <label>Country <span class="required">*</span></label>
+                            <select id="contactCountry" required>
+                                <option value="">Select Country</option>
+                            </select>
+                            <span class="error-message" id="error-contactCountry"></span>
+                        </div>
+                    </div>
+                    
+                    <div id="additionalAuthorisedPersonsContainer"></div>
+                    
+                    <button type="button" class="btn btn-primary" onclick="addAuthorisedPerson()" style="margin-top: 15px;">+ Add Another Authorised Person</button>
+                </div>
+
+                <!-- Billing Contact -->
+                <div class="section">
+                    <h3 class="section-title">Billing Contact</h3>
+                    
+                    <div class="form-group">
+                        <label><strong>Is the Contact Person also the point of contact for billing and invoices?</strong> <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="billingContact" value="yes" onchange="toggleBillingPerson()">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="billingContact" value="no" onchange="toggleBillingPerson()">
+                                <span>No</span>
+                            </label>
+                        </div>
+                        <span class="error-message" id="error-billingContact"></span>
+                    </div>
+
+                    <!-- Billing Person (if No) -->
+                    <div id="billingPersonSection" class="conditional-section">
+                        <div class="subsection-title">Point of Contact for Billing and Invoices</div>
+                        
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>First Name <span class="required">*</span></label>
+                                <input type="text" id="billFirstName" placeholder="First name">
+                                <span class="error-message" id="error-billFirstName"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Last Name <span class="required">*</span></label>
+                                <input type="text" id="billLastName" placeholder="Last name">
+                                <span class="error-message" id="error-billLastName"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone <span class="required">*</span></label>
+                            <div style="display: grid; grid-template-columns: 120px 1fr; gap: 10px;">
+                                <select id="billDialCode">
+                                    <option value="">Code</option>
+                                    <option value="+1">+1 (USA/Canada)</option>
+                                    <option value="+44">+44 (UK)</option>
+                                    <option value="+971">+971 (UAE)</option>
+                                    <option value="+91">+91 (India)</option>
+                                    <option value="+86">+86 (China)</option>
+                                    <option value="+61">+61 (Australia)</option>
+                                    <option value="+33">+33 (France)</option>
+                                    <option value="+49">+49 (Germany)</option>
+                                    <option value="+81">+81 (Japan)</option>
+                                    <option value="+65">+65 (Singapore)</option>
+                                    <option value="+1284">+1284 (BVI)</option>
+                                </select>
+                                <input type="text" id="billPhone" placeholder="Phone number">
+                            </div>
+                            <span class="error-message" id="error-billPhone"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email <span class="required">*</span></label>
+                            <input type="email" id="billEmail" placeholder="Email address">
+                            <span class="error-message" id="error-billEmail"></span>
+                        </div>
+
+                        <div class="subsection-title" style="margin-top: 15px;">Address</div>
+                        <div class="form-group">
+                            <label>Address <span class="required">*</span></label>
+                            <input type="text" id="billAddress" placeholder="Address line 1">
+                            <span class="error-message" id="error-billAddress"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Street</label>
+                            <input type="text" id="billStreet" placeholder="Street">
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>City <span class="required">*</span></label>
+                                <input type="text" id="billCity" placeholder="City">
+                                <span class="error-message" id="error-billCity"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>State/Province</label>
+                                <input type="text" id="billState" placeholder="State/Province">
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Postal Code</label>
+                                <input type="text" id="billPostal" placeholder="Postal Code">
+                            </div>
+                            <div class="form-group">
+                                <label>Country <span class="required">*</span></label>
+                                <select id="billCountry">
+                                    <option value="">Select Country</option>
+                                </select>
+                                <span class="error-message" id="error-billCountry"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-Signature -->
+                <div class="section">
+                    <h3 class="section-title">Electronic Signature</h3>
+                    
+                    <div class="info-box">
+                        <strong>📝 About Digital Signatures:</strong> Your digital signature has the same legal validity as a handwritten signature. 
+                        You can either draw your signature using your mouse/touchscreen or upload an image of your signature.
+                    </div>
+
+                    <div class="signature-container">
+                        <div class="signature-tabs">
+                            <button type="button" class="signature-tab active" onclick="switchSignatureTab('draw')">
+                                ✍️ Draw Signature
+                            </button>
+                            <button type="button" class="signature-tab" onclick="switchSignatureTab('upload')">
+                                📤 Upload Image
+                            </button>
+                        </div>
+
+                        <div id="drawPanel" class="signature-panel active">
+                            <p style="margin-bottom: 10px; color: #666; font-size: 14px;">Draw your signature in the box below:</p>
+                            <canvas id="signatureCanvas" width="500" height="150"></canvas>
+                            <div style="margin-top: 10px;">
+                                <button type="button" class="btn btn-secondary" onclick="clearSignature()">Clear Signature</button>
+                            </div>
+                        </div>
+
+                        <div id="uploadPanel" class="signature-panel">
+                            <p style="margin-bottom: 10px; color: #666; font-size: 14px;">Upload an image of your signature (PNG, JPG, or JPEG):</p>
+                            <input type="file" id="signatureUpload" accept="image/*" style="display: none;" onchange="handleSignatureUpload(event)">
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('signatureUpload').click()">Choose File</button>
+                            <p id="uploadFileName" style="margin-top: 10px; font-size: 14px; color: #666;"></p>
+                        </div>
+
+                        <span class="error-message" id="error-signature"></span>
+                    </div>
+
+                    <div class="agreement-checkbox">
+                        <input type="checkbox" id="signatureAgreement">
+                        <label for="signatureAgreement">
+                            I acknowledge that my electronic signature has the same legal effect as a handwritten signature and I consent to conduct business electronically.
+                        </label>
+                    </div>
+                    <span class="error-message" id="error-agreement"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="submit-section">
+                    <button type="submit" class="btn-submit">Download Contact Form (PDF)</button>
+                    <p class="submit-note">* Indicates required field</p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Bethel Worldwide Corporation</strong></p>
+            <p>Bethel House, P.O. Box 4749, Road Town, Tortola, VG1110, British Virgin Islands</p>
+            <p>For assistance, please contact your Bethel Worldwide Corporation representative</p>
+        </div>
+    </div>
+
+    <script>
+        // Country list (195 countries)
+        const countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","East Timor","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
+
+        // Populate country dropdowns
+        function populateCountryDropdown(selectElement) {
+            countries.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                selectElement.appendChild(option);
+            });
+        }
+
+        // Initialize country dropdowns on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            populateCountryDropdown(document.getElementById('contactCountry'));
+            populateCountryDropdown(document.getElementById('authCountry'));
+            populateCountryDropdown(document.getElementById('billCountry'));
+        });
+
+        // Array to track additional authorised persons
+        const additionalAuthorisedPersons = [];
+
+        // Add authorised person
+        function addAuthorisedPerson() {
+            const index = additionalAuthorisedPersons.length;
+            additionalAuthorisedPersons.push({});
+            const container = document.getElementById('additionalAuthorisedPersonsContainer');
+            const div = document.createElement('div');
+            div.className = 'conditional-section active';
+            div.style.marginTop = '20px';
+            div.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #d1d5db;">
+                    <div class="subsection-title" style="margin: 0;">Authorised Person ${index + 2}</div>
+                    <button type="button" class="btn btn-danger" onclick="removeAuthorisedPerson(${index})" style="padding: 8px 16px; font-size: 14px;">Remove</button>
+                </div>
+                
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" data-auth="${index}" data-field="firstName" placeholder="First name">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" data-auth="${index}" data-field="lastName" placeholder="Last name">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Occupation</label>
+                    <input type="text" data-auth="${index}" data-field="occupation" placeholder="Occupation">
+                </div>
+                
+                <div class="form-group">
+                    <label>Phone</label>
+                    <div style="display: grid; grid-template-columns: 120px 1fr; gap: 10px;">
+                        <select data-auth="${index}" data-field="dialCode">
+                            <option value="">Code</option>
+                            <option value="+1">+1 (USA/Canada)</option>
+                            <option value="+44">+44 (UK)</option>
+                            <option value="+971">+971 (UAE)</option>
+                            <option value="+91">+91 (India)</option>
+                            <option value="+86">+86 (China)</option>
+                            <option value="+61">+61 (Australia)</option>
+                            <option value="+33">+33 (France)</option>
+                            <option value="+49">+49 (Germany)</option>
+                            <option value="+81">+81 (Japan)</option>
+                            <option value="+65">+65 (Singapore)</option>
+                            <option value="+1284">+1284 (BVI)</option>
+                        </select>
+                        <input type="text" data-auth="${index}" data-field="phone" placeholder="Phone number">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" data-auth="${index}" data-field="email" placeholder="Email address">
+                </div>
+                
+                <div class="subsection-title" style="margin-top: 15px;">Address</div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" data-auth="${index}" data-field="address" placeholder="Address line 1">
+                </div>
+                <div class="form-group">
+                    <label>Street</label>
+                    <input type="text" data-auth="${index}" data-field="street" placeholder="Street">
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" data-auth="${index}" data-field="city" placeholder="City">
+                    </div>
+                    <div class="form-group">
+                        <label>State/Province</label>
+                        <input type="text" data-auth="${index}" data-field="state" placeholder="State/Province">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Postal Code</label>
+                        <input type="text" data-auth="${index}" data-field="postal" placeholder="Postal Code">
+                    </div>
+                    <div class="form-group">
+                        <label>Country</label>
+                        <select data-auth="${index}" data-field="country">
+                            <option value="">Select Country</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+            
+            // Populate country dropdown for this person
+            const countrySelect = div.querySelector(`select[data-auth="${index}"][data-field="country"]`);
+            populateCountryDropdown(countrySelect);
+        }
+
+        // Remove authorised person
+        function removeAuthorisedPerson(index) {
+            const container = document.getElementById('additionalAuthorisedPersonsContainer');
+            container.children[index].remove();
+            additionalAuthorisedPersons[index] = null;
+        }
+
+        // Toggle billing person section
+        function toggleBillingPerson() {
+            const billing = document.querySelector('input[name="billingContact"]:checked');
+            const section = document.getElementById('billingPersonSection');
+            
+            if (billing && billing.value === 'no') {
+                section.classList.add('active');
+            } else {
+                section.classList.remove('active');
+            }
+        }
+
+        // Signature canvas setup
+        const canvas = document.getElementById('signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let signatureDataURL = null;
+
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            if (isDrawing) {
+                isDrawing = false;
+                signatureDataURL = canvas.toDataURL();
+            }
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        // Touch support
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            const mouseEvent = new MouseEvent('mouseup', {});
+            canvas.dispatchEvent(mouseEvent);
+        });
+
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            signatureDataURL = null;
+        }
+
+        function switchSignatureTab(tab) {
+            const tabs = document.querySelectorAll('.signature-tab');
+            const panels = document.querySelectorAll('.signature-panel');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
+            
+            if (tab === 'draw') {
+                tabs[0].classList.add('active');
+                document.getElementById('drawPanel').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('uploadPanel').classList.add('active');
+            }
+        }
+
+        function handleSignatureUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+                        const x = (canvas.width - img.width * scale) / 2;
+                        const y = (canvas.height - img.height * scale) / 2;
+                        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+                        signatureDataURL = canvas.toDataURL();
+                        document.getElementById('uploadFileName').textContent = '✓ Signature uploaded: ' + file.name;
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+
+            let isValid = true;
+
+            // Validate basic fields
+            const requiredFields = ['formDate', 'companyName', 'contactFirstName', 'contactLastName', 'contactOccupation',
+                                   'contactPhone', 'contactEmail', 'contactAddress', 'contactCity', 'contactCountry'];
+
+            requiredFields.forEach(field => {
+                const el = document.getElementById(field);
+                if (!el || !el.value.trim()) {
+                    isValid = false;
+                    const errorEl = document.getElementById(`error-${field}`);
+                    if (errorEl) errorEl.textContent = 'This field is required';
+                    if (el) el.classList.add('error');
+                }
+            });
+
+            // Validate dial code
+            if (!document.getElementById('contactDialCode').value) {
+                isValid = false;
+                document.getElementById('error-contactPhone').textContent = 'Please select a dial code';
+            }
+
+            // Validate billing contact selection
+            const billingContact = document.querySelector('input[name="billingContact"]:checked');
+            if (!billingContact) {
+                isValid = false;
+                document.getElementById('error-billingContact').textContent = 'Please select an option';
+            }
+
+            // Validate billing person if No
+            if (billingContact && billingContact.value === 'no') {
+                const billFields = ['billFirstName', 'billLastName', 'billPhone', 'billEmail', 
+                                   'billAddress', 'billCity', 'billCountry'];
+                billFields.forEach(field => {
+                    const el = document.getElementById(field);
+                    if (!el || !el.value.trim()) {
+                        isValid = false;
+                        const errorEl = document.getElementById(`error-${field}`);
+                        if (errorEl) errorEl.textContent = 'This field is required';
+                        if (el) el.classList.add('error');
+                    }
+                });
+                
+                if (!document.getElementById('billDialCode').value) {
+                    isValid = false;
+                    document.getElementById('error-billPhone').textContent = 'Please select a dial code';
+                }
+            }
+
+            // Validate signature
+            if (!signatureDataURL) {
+                isValid = false;
+                document.getElementById('error-signature').textContent = 'Please provide your digital signature';
+            }
+
+            // Validate signature agreement
+            if (!document.getElementById('signatureAgreement').checked) {
+                isValid = false;
+                document.getElementById('error-agreement').textContent = 'You must agree to the electronic signature terms';
+            }
+
+            if (!isValid) {
+                alert('Please fill in all required fields marked with * and provide your digital signature');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            // Generate PDF
+            generatePDF();
+        });
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const pageWidth = doc.internal.pageSize.width;
+            const pageHeight = doc.internal.pageSize.height;
+            const margin = 20;
+            const lineHeight = 6;
+            let yPosition = margin;
+
+            function addText(text, x, y, maxWidth) {
+                const lines = doc.splitTextToSize(text, maxWidth);
+                lines.forEach((line, index) => {
+                    if (y + (index * lineHeight) > pageHeight - margin) {
+                        doc.addPage();
+                        y = margin;
+                    }
+                    doc.text(line, x, y + (index * lineHeight));
+                });
+                return y + (lines.length * lineHeight);
+            }
+
+            function buildAddress(prefix) {
+                let parts = [];
+                const address = document.getElementById(`${prefix}Address`)?.value;
+                const street = document.getElementById(`${prefix}Street`)?.value;
+                const city = document.getElementById(`${prefix}City`)?.value;
+                const state = document.getElementById(`${prefix}State`)?.value;
+                const postal = document.getElementById(`${prefix}Postal`)?.value;
+                const country = document.getElementById(`${prefix}Country`)?.value;
+                
+                if (address) parts.push(address);
+                if (street) parts.push(street);
+                if (city) parts.push(city);
+                if (state) parts.push(state);
+                if (postal) parts.push(postal);
+                if (country) parts.push(country);
+                
+                return parts.join(', ');
+            }
+
+            // Title
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('BETHEL WORLDWIDE CORPORATION', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 3;
+            yPosition = addText('CONTACT FORM', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 10;
+
+            // Date and Company
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            const dateStr = new Date(document.getElementById('formDate').value).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            yPosition = addText(`Date: ${dateStr}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Company Name: ${document.getElementById('companyName').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 8;
+
+            // Contact Person
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('CONTACT PERSON(S) AUTHORISED TO GIVE INSTRUCTIONS', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            
+            // Primary contact person
+            const contactName = `${document.getElementById('contactFirstName').value} ${document.getElementById('contactLastName').value}`;
+            yPosition = addText(`Name: ${contactName}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Occupation: ${document.getElementById('contactOccupation').value}`, margin, yPosition, pageWidth - 2 * margin);
+            const contactPhone = `${document.getElementById('contactDialCode').value} ${document.getElementById('contactPhone').value}`;
+            yPosition = addText(`Phone: ${contactPhone}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Email: ${document.getElementById('contactEmail').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Address: ${buildAddress('contact')}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+            
+            // Additional authorised persons
+            additionalAuthorisedPersons.forEach((person, idx) => {
+                if (person !== null) {
+                    const firstName = document.querySelector(`[data-auth="${idx}"][data-field="firstName"]`)?.value;
+                    const lastName = document.querySelector(`[data-auth="${idx}"][data-field="lastName"]`)?.value;
+                    const occupation = document.querySelector(`[data-auth="${idx}"][data-field="occupation"]`)?.value;
+                    const dialCode = document.querySelector(`[data-auth="${idx}"][data-field="dialCode"]`)?.value;
+                    const phone = document.querySelector(`[data-auth="${idx}"][data-field="phone"]`)?.value;
+                    const email = document.querySelector(`[data-auth="${idx}"][data-field="email"]`)?.value;
+                    const address = document.querySelector(`[data-auth="${idx}"][data-field="address"]`)?.value;
+                    const street = document.querySelector(`[data-auth="${idx}"][data-field="street"]`)?.value;
+                    const city = document.querySelector(`[data-auth="${idx}"][data-field="city"]`)?.value;
+                    const state = document.querySelector(`[data-auth="${idx}"][data-field="state"]`)?.value;
+                    const postal = document.querySelector(`[data-auth="${idx}"][data-field="postal"]`)?.value;
+                    const country = document.querySelector(`[data-auth="${idx}"][data-field="country"]`)?.value;
+                    
+                    if (firstName || lastName || email) {
+                        if (yPosition > pageHeight - 40) {
+                            doc.addPage();
+                            yPosition = margin;
+                        }
+                        
+                        doc.setFont(undefined, 'bold');
+                        yPosition = addText(`Authorised Person ${idx + 2}:`, margin, yPosition, pageWidth - 2 * margin);
+                        yPosition += 3;
+                        doc.setFont(undefined, 'normal');
+                        
+                        if (firstName || lastName) {
+                            yPosition = addText(`Name: ${firstName} ${lastName}`, margin, yPosition, pageWidth - 2 * margin);
+                        }
+                        if (occupation) {
+                            yPosition = addText(`Occupation: ${occupation}`, margin, yPosition, pageWidth - 2 * margin);
+                        }
+                        if (dialCode && phone) {
+                            yPosition = addText(`Phone: ${dialCode} ${phone}`, margin, yPosition, pageWidth - 2 * margin);
+                        }
+                        if (email) {
+                            yPosition = addText(`Email: ${email}`, margin, yPosition, pageWidth - 2 * margin);
+                        }
+                        if (address || city || country) {
+                            let addrParts = [];
+                            if (address) addrParts.push(address);
+                            if (street) addrParts.push(street);
+                            if (city) addrParts.push(city);
+                            if (state) addrParts.push(state);
+                            if (postal) addrParts.push(postal);
+                            if (country) addrParts.push(country);
+                            yPosition = addText(`Address: ${addrParts.join(', ')}`, margin, yPosition, pageWidth - 2 * margin);
+                        }
+                        yPosition += 5;
+                    }
+                }
+            });
+            
+            yPosition += 3;
+
+            // Billing Contact
+            const billingContact = document.querySelector('input[name="billingContact"]:checked');
+            yPosition = addText(`Billing contact same as contact person: ${billingContact.value.toUpperCase()}`, margin, yPosition, pageWidth - 2 * margin);
+            
+            if (billingContact.value === 'no') {
+                yPosition += 5;
+                doc.setFontSize(11);
+                doc.setFont(undefined, 'bold');
+                yPosition = addText('POINT OF CONTACT FOR BILLING AND INVOICES', margin, yPosition, pageWidth - 2 * margin);
+                yPosition += 5;
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                const billName = `${document.getElementById('billFirstName').value} ${document.getElementById('billLastName').value}`;
+                yPosition = addText(`Name: ${billName}`, margin, yPosition, pageWidth - 2 * margin);
+                const billPhone = `${document.getElementById('billDialCode').value} ${document.getElementById('billPhone').value}`;
+                yPosition = addText(`Phone: ${billPhone}`, margin, yPosition, pageWidth - 2 * margin);
+                yPosition = addText(`Email: ${document.getElementById('billEmail').value}`, margin, yPosition, pageWidth - 2 * margin);
+                yPosition = addText(`Address: ${buildAddress('bill')}`, margin, yPosition, pageWidth - 2 * margin);
+            }
+            yPosition += 10;
+
+            // Signature
+            if (signatureDataURL) {
+                if (yPosition + 30 > pageHeight - margin) {
+                    doc.addPage();
+                    yPosition = margin;
+                }
+                doc.setFont(undefined, 'bold');
+                yPosition = addText('SIGNATURE', margin, yPosition, pageWidth - 2 * margin);
+                yPosition += 5;
+                doc.addImage(signatureDataURL, 'PNG', margin, yPosition, 60, 20);
+                yPosition += 22;
+                doc.setFont(undefined, 'normal');
+                yPosition = addText(`${contactName}`, margin, yPosition, pageWidth - 2 * margin);
+                yPosition += 3;
+                yPosition = addText('(Digitally Signed)', margin, yPosition, pageWidth - 2 * margin);
+            }
+
+            // Save PDF
+            const fileName = `Contact_Form_${document.getElementById('companyName').value.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+            doc.save(fileName);
+        }
+    </script>
+</body>
+</html>
