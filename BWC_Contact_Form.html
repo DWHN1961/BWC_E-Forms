@@ -371,6 +371,12 @@
                         <input type="text" id="companyName" placeholder="Enter company name" required>
                         <span class="error-message" id="error-companyName"></span>
                     </div>
+
+                    <div class="form-group">
+                        <label>Company Number <span class="required">*</span></label>
+                        <input type="text" id="companyNumber" placeholder="Enter company number" required>
+                        <span class="error-message" id="error-companyNumber"></span>
+                    </div>
                 </div>
 
                 <!-- Contact Person(s) Authorised to give Instructions -->
@@ -889,7 +895,7 @@
             let isValid = true;
 
             // Validate basic fields
-            const requiredFields = ['formDate', 'companyName', 'contactFirstName', 'contactLastName', 'contactOccupation',
+            const requiredFields = ['formDate', 'companyName', 'companyNumber', 'contactFirstName', 'contactLastName', 'contactOccupation',
                                    'contactPhone', 'contactEmail', 'contactAddress', 'contactCity', 'contactCountry'];
 
             requiredFields.forEach(field => {
@@ -1015,6 +1021,7 @@
             });
             yPosition = addText(`Date: ${dateStr}`, margin, yPosition, pageWidth - 2 * margin);
             yPosition = addText(`Company Name: ${document.getElementById('companyName').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Company Number: ${document.getElementById('companyNumber').value}`, margin, yPosition, pageWidth - 2 * margin);
             yPosition += 8;
 
             // Contact Person
