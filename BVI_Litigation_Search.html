@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request for BVI High Court Litigation Search | Bethel Worldwide Corporation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5986 100%);
+            padding: 40px 20px;
+            font-family: 'Crimson Pro', Georgia, serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2d5986 0%, #1e3a5f 100%);
+            padding: 40px;
+            color: white;
+            text-align: center;
+            border-bottom: 4px solid #d4af37;
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .header h2 {
+            margin: 10px 0 0 0;
+            font-size: 18px;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #1e3a5f;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 8px;
+            font-family: 'Playfair Display', Georgia, serif;
+            text-transform: uppercase;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            color: #2d5986;
+            margin: 20px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2d5986;
+        }
+
+        input.error,
+        select.error {
+            border-color: #dc2626;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .info-box {
+            background-color: #dbeafe;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #60a5fa;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #f59e0b;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .entity-block {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background-color: #f9fafb;
+        }
+
+        .entity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d1d5db;
+        }
+
+        .entity-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d5986;
+        }
+
+        .checkbox-group {
+            margin-top: 15px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: start;
+            margin-bottom: 12px;
+            padding: 12px;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background-color: #f3f4f6;
+            border-color: #2d5986;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .checkbox-label {
+            font-weight: normal;
+            color: #333;
+            font-size: 15px;
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        .checkbox-note {
+            background-color: #fef3c7;
+            border: 2px solid #fbbf24;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #78350f;
+            font-style: italic;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: #2d5986;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e3a5f;
+        }
+
+        .btn-secondary {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 3px solid #d4af37;
+        }
+
+        .btn-submit {
+            padding: 16px 48px;
+            background-color: #2d5986;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-submit:hover {
+            background-color: #1e3a5f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .submit-note {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer {
+            background-color: #f3f4f6;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .form-content {
+                padding: 20px;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Bethel Worldwide Corporation</h1>
+            <h2>Request for BVI High Court Litigation Search</h2>
+        </div>
+
+        <!-- Form Content -->
+        <div class="form-content">
+            <form id="litigationSearchForm">
+                
+                <!-- I. Applicant Information -->
+                <div class="section">
+                    <h3 class="section-title">I. Applicant Information</h3>
+                    
+                    <div class="form-group">
+                        <label>Requesting Firm/Individual <span class="required">*</span></label>
+                        <input type="text" id="requestingFirm" placeholder="Enter firm or individual name" required>
+                        <span class="error-message" id="error-requestingFirm"></span>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Contact Name <span class="required">*</span></label>
+                            <input type="text" id="contactName" placeholder="Enter contact name" required>
+                            <span class="error-message" id="error-contactName"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email <span class="required">*</span></label>
+                            <input type="email" id="email" placeholder="Enter email address" required>
+                            <span class="error-message" id="error-email"></span>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>File Reference <span class="required">*</span></label>
+                            <input type="text" id="fileReference" placeholder="Enter file reference" required>
+                            <span class="error-message" id="error-fileReference"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date of Request <span class="required">*</span></label>
+                            <input type="date" id="requestDate" required>
+                            <span class="error-message" id="error-requestDate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- II. Search Subject -->
+                <div class="section">
+                    <h3 class="section-title">II. Search Subject (Entity or Individual)</h3>
+                    
+                    <div class="info-box">
+                        <strong>Note:</strong> Add all entities or individuals you wish to search. Each entry includes a checkbox that will be marked by the agent conducting the search upon completion.
+                    </div>
+
+                    <div id="entitiesContainer"></div>
+                    
+                    <button type="button" class="btn btn-primary" onclick="addEntity()">+ Add an Entity or Individual</button>
+                </div>
+
+                <!-- III. Jurisdictional Scope -->
+                <div class="section">
+                    <h3 class="section-title">III. Jurisdictional Scope</h3>
+                    
+                    <div class="warning-box">
+                        <strong>📋 Registries/Divisions to be searched:</strong> Please select all applicable registries and divisions for the search.
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="jurisdiction" value="High Court (Civil Division)" id="civilDivision">
+                            <span class="checkbox-label">High Court (Civil Division)</span>
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="jurisdiction" value="High Court (Commercial Division)" id="commercialDivision">
+                            <span class="checkbox-label">High Court (Commercial Division) – Claims over $500,000</span>
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="jurisdiction" value="Court of Appeal" id="courtAppeal">
+                            <span class="checkbox-label">Court of Appeal</span>
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="jurisdiction" value="Probate/Administration Records" id="probateRecords">
+                            <span class="checkbox-label">Probate/Administration Records</span>
+                        </label>
+                    </div>
+                    <span class="error-message" id="error-jurisdiction"></span>
+                </div>
+
+                <!-- Electronic Signature -->
+                <div class="section">
+                    <h3 class="section-title">Electronic Signature</h3>
+                    
+                    <div class="info-box">
+                        <strong>📝 About Digital Signatures:</strong> Your digital signature has the same legal validity as a handwritten signature. You can either draw your signature using your mouse/touchscreen or upload an image of your signature.
+                    </div>
+
+                    <div class="signature-container" style="border: 2px solid #d1d5db; border-radius: 8px; padding: 20px; background-color: #f9fafb;">
+                        <div class="signature-tabs" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <button type="button" class="signature-tab active" onclick="switchSignatureTab('draw')" style="flex: 1; padding: 10px 20px; background-color: #2d5986; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.2s; font-family: inherit;">
+                                ✍️ Draw Signature
+                            </button>
+                            <button type="button" class="signature-tab" onclick="switchSignatureTab('upload')" style="flex: 1; padding: 10px 20px; background-color: #e5e7eb; color: #333; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.2s; font-family: inherit;">
+                                📤 Upload Image
+                            </button>
+                        </div>
+
+                        <div id="drawPanel" class="signature-panel" style="display: block;">
+                            <p style="margin-bottom: 10px; color: #666; font-size: 14px;">Draw your signature in the box below:</p>
+                            <canvas id="signatureCanvas" width="500" height="150" style="border: 2px solid #d1d5db; border-radius: 6px; cursor: crosshair; background-color: white; width: 100%; max-width: 500px; height: 150px;"></canvas>
+                            <div style="margin-top: 10px;">
+                                <button type="button" class="btn btn-secondary" onclick="clearSignature()">Clear Signature</button>
+                            </div>
+                        </div>
+
+                        <div id="uploadPanel" class="signature-panel" style="display: none;">
+                            <p style="margin-bottom: 10px; color: #666; font-size: 14px;">Upload an image of your signature (PNG, JPG, or JPEG):</p>
+                            <input type="file" id="signatureUpload" accept="image/*" style="display: none;" onchange="handleSignatureUpload(event)">
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('signatureUpload').click()">Choose File</button>
+                            <p id="uploadFileName" style="margin-top: 10px; font-size: 14px; color: #666;"></p>
+                        </div>
+
+                        <span class="error-message" id="error-signature"></span>
+                    </div>
+
+                    <div style="display: flex; align-items: start; gap: 10px; margin-top: 15px; padding: 15px; background-color: #fef3c7; border: 2px solid #fbbf24; border-radius: 6px;">
+                        <input type="checkbox" id="signatureAgreement" style="margin-top: 3px; flex-shrink: 0; width: 18px; height: 18px; cursor: pointer;">
+                        <label for="signatureAgreement" style="font-weight: normal; margin-bottom: 0; cursor: pointer;">
+                            I acknowledge that my electronic signature has the same legal effect as a handwritten signature and I consent to conduct business electronically.
+                        </label>
+                    </div>
+                    <span class="error-message" id="error-agreement"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="submit-section">
+                    <button type="submit" class="btn-submit">Download Search Request (PDF)</button>
+                    <p class="submit-note">* Indicates required field</p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Bethel Worldwide Corporation</strong></p>
+            <p>Bethel House, P.O. Box 4749, Road Town, Tortola, VG1110, British Virgin Islands</p>
+            <p>For assistance, please contact your Bethel Worldwide Corporation representative</p>
+        </div>
+    </div>
+
+    <script>
+        // Array to track entities
+        const entities = [];
+
+        // Add Entity or Individual
+        function addEntity() {
+            const index = entities.length;
+            entities.push({});
+            const container = document.getElementById('entitiesContainer');
+            const div = document.createElement('div');
+            div.className = 'entity-block';
+            div.innerHTML = `
+                <div class="entity-header">
+                    <div class="entity-title">Entity/Individual ${index + 1}</div>
+                    ${index > 0 ? `<button type="button" class="btn btn-danger" onclick="removeEntity(${index})">Remove</button>` : ''}
+                </div>
+                
+                <div class="form-group">
+                    <label>Full Legal Name <span class="required">*</span></label>
+                    <input type="text" data-entity="${index}" data-field="name" placeholder="Enter full legal name of entity or individual" required>
+                    <span class="error-message" id="error-entity${index}"></span>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <label class="checkbox-item" style="cursor: default; background-color: #fef3c7; border-color: #fbbf24;">
+                        <input type="checkbox" data-entity="${index}" data-field="nothingFound" disabled style="cursor: not-allowed; opacity: 0.6;">
+                        <span class="checkbox-label">
+                            <strong>Nothing was found</strong>
+                            <div class="checkbox-note" style="margin-top: 8px; background-color: #fef3c7; border: none; padding: 0;">
+                                <strong>Note:</strong> This checkbox will be marked by the agent conducting the search if nothing is found for this entity/individual.
+                            </div>
+                        </span>
+                    </label>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        // Remove Entity
+        function removeEntity(index) {
+            const container = document.getElementById('entitiesContainer');
+            container.children[index].remove();
+            entities[index] = null;
+        }
+
+        // Initialize - add first entity
+        document.addEventListener('DOMContentLoaded', function() {
+            addEntity();
+            initializeSignatureCanvas();
+        });
+
+        // Signature functionality
+        let signatureDataURL = null;
+        const canvas = document.getElementById('signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+
+        function initializeSignatureCanvas() {
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            // Mouse events
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            // Touch events
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', stopDrawing);
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            if (isDrawing) {
+                isDrawing = false;
+                signatureDataURL = canvas.toDataURL();
+            }
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            signatureDataURL = null;
+        }
+
+        function switchSignatureTab(tab) {
+            const tabs = document.querySelectorAll('.signature-tab');
+            const drawPanel = document.getElementById('drawPanel');
+            const uploadPanel = document.getElementById('uploadPanel');
+            
+            tabs.forEach(t => {
+                t.style.backgroundColor = '#e5e7eb';
+                t.style.color = '#333';
+            });
+            
+            if (tab === 'draw') {
+                tabs[0].style.backgroundColor = '#2d5986';
+                tabs[0].style.color = 'white';
+                drawPanel.style.display = 'block';
+                uploadPanel.style.display = 'none';
+            } else {
+                tabs[1].style.backgroundColor = '#2d5986';
+                tabs[1].style.color = 'white';
+                drawPanel.style.display = 'none';
+                uploadPanel.style.display = 'block';
+            }
+        }
+
+        function handleSignatureUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+                        const x = (canvas.width - img.width * scale) / 2;
+                        const y = (canvas.height - img.height * scale) / 2;
+                        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+                        signatureDataURL = canvas.toDataURL();
+                        document.getElementById('uploadFileName').textContent = '✓ Signature uploaded: ' + file.name;
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Form submission
+        document.getElementById('litigationSearchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+
+            let isValid = true;
+
+            // Validate applicant information
+            const requiredFields = ['requestingFirm', 'contactName', 'email', 'fileReference', 'requestDate'];
+
+            requiredFields.forEach(field => {
+                const el = document.getElementById(field);
+                if (!el || !el.value.trim()) {
+                    isValid = false;
+                    const errorEl = document.getElementById(`error-${field}`);
+                    if (errorEl) errorEl.textContent = 'This field is required';
+                    if (el) el.classList.add('error');
+                }
+            });
+
+            // Validate entities
+            let hasValidEntity = false;
+            entities.forEach((entity, idx) => {
+                if (entity !== null) {
+                    const nameField = document.querySelector(`input[data-entity="${idx}"][data-field="name"]`);
+                    if (nameField && nameField.value.trim()) {
+                        hasValidEntity = true;
+                    } else if (nameField) {
+                        isValid = false;
+                        const errorEl = document.getElementById(`error-entity${idx}`);
+                        if (errorEl) errorEl.textContent = 'Full legal name is required';
+                        nameField.classList.add('error');
+                    }
+                }
+            });
+
+            if (!hasValidEntity) {
+                isValid = false;
+                alert('Please add at least one entity or individual to search');
+            }
+
+            // Validate jurisdictional scope
+            const jurisdictionChecked = document.querySelectorAll('input[name="jurisdiction"]:checked');
+            if (jurisdictionChecked.length === 0) {
+                isValid = false;
+                document.getElementById('error-jurisdiction').textContent = 'Please select at least one registry/division to search';
+            }
+
+            // Validate signature
+            if (!signatureDataURL) {
+                isValid = false;
+                document.getElementById('error-signature').textContent = 'Please provide your digital signature';
+            }
+
+            // Validate signature agreement
+            if (!document.getElementById('signatureAgreement').checked) {
+                isValid = false;
+                document.getElementById('error-agreement').textContent = 'You must agree to the electronic signature terms';
+            }
+
+            if (!isValid) {
+                alert('Please fill in all required fields, provide your signature, and select at least one jurisdiction');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            // Generate PDF
+            generatePDF();
+        });
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const pageWidth = doc.internal.pageSize.width;
+            const pageHeight = doc.internal.pageSize.height;
+            const margin = 20;
+            const lineHeight = 6;
+            let yPosition = margin;
+
+            function addText(text, x, y, maxWidth) {
+                const lines = doc.splitTextToSize(text, maxWidth);
+                lines.forEach((line, index) => {
+                    if (y + (index * lineHeight) > pageHeight - margin) {
+                        doc.addPage();
+                        y = margin;
+                    }
+                    doc.text(line, x, y + (index * lineHeight));
+                });
+                return y + (lines.length * lineHeight);
+            }
+
+            // Title
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('BETHEL WORLDWIDE CORPORATION', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 3;
+            yPosition = addText('REQUEST FOR BVI HIGH COURT LITIGATION SEARCH', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 10;
+
+            // I. Applicant Information
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('I. APPLICANT INFORMATION', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+
+            yPosition = addText(`Requesting Firm/Individual: ${document.getElementById('requestingFirm').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Contact Name: ${document.getElementById('contactName').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Email: ${document.getElementById('email').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`File Reference: ${document.getElementById('fileReference').value}`, margin, yPosition, pageWidth - 2 * margin);
+            
+            const dateStr = new Date(document.getElementById('requestDate').value).toLocaleDateString('en-GB', { 
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+            yPosition = addText(`Date of Request: ${dateStr}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 10;
+
+            // II. Search Subject
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('II. SEARCH SUBJECT (ENTITY OR INDIVIDUAL)', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+
+            entities.forEach((entity, idx) => {
+                if (entity !== null) {
+                    const nameField = document.querySelector(`input[data-entity="${idx}"][data-field="name"]`);
+                    if (nameField && nameField.value.trim()) {
+                        if (yPosition > pageHeight - 40) {
+                            doc.addPage();
+                            yPosition = margin;
+                        }
+                        
+                        yPosition = addText(`${idx + 1}. Full Legal Name: ${nameField.value}`, margin, yPosition, pageWidth - 2 * margin);
+                        
+                        // Add checkbox square for "Nothing was found"
+                        doc.rect(margin + 5, yPosition, 4, 4);
+                        yPosition = addText('   Nothing was found', margin + 5, yPosition + 3, pageWidth - 2 * margin - 10);
+                        yPosition += 2;
+                        doc.setFontSize(8);
+                        doc.setFont(undefined, 'italic');
+                        yPosition = addText('(To be checked by the agent conducting the search)', margin + 10, yPosition, pageWidth - 2 * margin - 10);
+                        doc.setFontSize(10);
+                        doc.setFont(undefined, 'normal');
+                        yPosition += 5;
+                    }
+                }
+            });
+
+            yPosition += 5;
+
+            // III. Jurisdictional Scope
+            if (yPosition > pageHeight - 60) {
+                doc.addPage();
+                yPosition = margin;
+            }
+            
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('III. JURISDICTIONAL SCOPE', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 5;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            yPosition = addText('Registries/Divisions to be searched:', margin, yPosition, pageWidth - 2 * margin);
+            yPosition += 3;
+
+            const jurisdictions = document.querySelectorAll('input[name="jurisdiction"]:checked');
+            jurisdictions.forEach(checkbox => {
+                // Add checkbox square (filled)
+                doc.rect(margin + 5, yPosition - 2, 4, 4, 'F');
+                yPosition = addText(`   ${checkbox.value}`, margin + 5, yPosition + 1, pageWidth - 2 * margin - 10);
+                yPosition += 2;
+            });
+
+            yPosition += 10;
+
+            // Signature
+            if (signatureDataURL) {
+                if (yPosition + 35 > pageHeight - margin) {
+                    doc.addPage();
+                    yPosition = margin;
+                }
+                
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                yPosition = addText('SIGNATURE', margin, yPosition, pageWidth - 2 * margin);
+                yPosition += 5;
+                
+                doc.addImage(signatureDataURL, 'PNG', margin, yPosition, 60, 20);
+                yPosition += 22;
+                
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                const contactName = document.getElementById('contactName').value;
+                yPosition = addText(`Signature: ${contactName}`, margin, yPosition, pageWidth - 2 * margin);
+                yPosition += 3;
+                yPosition = addText('(Digitally Signed)', margin, yPosition, pageWidth - 2 * margin);
+                
+                const signDate = new Date(document.getElementById('requestDate').value).toLocaleDateString('en-GB', { 
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+                yPosition += 3;
+                yPosition = addText(`Date: ${signDate}`, margin, yPosition, pageWidth - 2 * margin);
+            }
+
+            // Save PDF
+            const fileName = `BVI_Litigation_Search_${document.getElementById('fileReference').value.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+            doc.save(fileName);
+        }
+    </script>
+</body>
+</html>
