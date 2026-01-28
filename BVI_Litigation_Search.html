@@ -390,86 +390,9 @@
                     <button type="button" class="btn btn-primary" onclick="addEntity()">+ Add an Entity or Individual</button>
                 </div>
 
-                <!-- III. Jurisdictional Scope -->
-                <div class="section">
-                    <h3 class="section-title">III. Jurisdictional Scope</h3>
-                    
-                    <div class="warning-box">
-                        <strong>📋 Registries/Divisions to be searched:</strong> Please select all applicable registries and divisions for the search.
-                    </div>
-
-                    <div class="checkbox-group">
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="jurisdiction" value="High Court (Civil Division)" id="civilDivision">
-                            <span class="checkbox-label">High Court (Civil Division)</span>
-                        </label>
-
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="jurisdiction" value="High Court (Commercial Division)" id="commercialDivision">
-                            <span class="checkbox-label">High Court (Commercial Division) – Claims over $500,000</span>
-                        </label>
-
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="jurisdiction" value="Court of Appeal" id="courtAppeal">
-                            <span class="checkbox-label">Court of Appeal</span>
-                        </label>
-
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="jurisdiction" value="Probate/Administration Records" id="probateRecords">
-                            <span class="checkbox-label">Probate/Administration Records</span>
-                        </label>
-                    </div>
-                    <span class="error-message" id="error-jurisdiction"></span>
-                </div>
-
-                <!-- Electronic Signature -->
-                <div class="section">
-                    <h3 class="section-title">Electronic Signature</h3>
-                    
-                    <div class="info-box">
-                        <strong>📝 About Digital Signatures:</strong> Your digital signature has the same legal validity as a handwritten signature. You can either draw your signature using your mouse/touchscreen or upload an image of your signature.
-                    </div>
-
-                    <div class="signature-container" style="border: 2px solid #d1d5db; border-radius: 8px; padding: 20px; background-color: #f9fafb;">
-                        <div class="signature-tabs" style="display: flex; gap: 10px; margin-bottom: 15px;">
-                            <button type="button" class="signature-tab active" onclick="switchSignatureTab('draw')" style="flex: 1; padding: 10px 20px; background-color: #2d5986; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.2s; font-family: inherit;">
-                                ✍️ Draw Signature
-                            </button>
-                            <button type="button" class="signature-tab" onclick="switchSignatureTab('upload')" style="flex: 1; padding: 10px 20px; background-color: #e5e7eb; color: #333; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.2s; font-family: inherit;">
-                                📤 Upload Image
-                            </button>
-                        </div>
-
-                        <div id="drawPanel" class="signature-panel" style="display: block;">
-                            <p style="margin-bottom: 10px; color: #666; font-size: 14px;">Draw your signature in the box below:</p>
-                            <canvas id="signatureCanvas" width="500" height="150" style="border: 2px solid #d1d5db; border-radius: 6px; cursor: crosshair; background-color: white; width: 100%; max-width: 500px; height: 150px;"></canvas>
-                            <div style="margin-top: 10px;">
-                                <button type="button" class="btn btn-secondary" onclick="clearSignature()">Clear Signature</button>
-                            </div>
-                        </div>
-
-                        <div id="uploadPanel" class="signature-panel" style="display: none;">
-                            <p style="margin-bottom: 10px; color: #666; font-size: 14px;">Upload an image of your signature (PNG, JPG, or JPEG):</p>
-                            <input type="file" id="signatureUpload" accept="image/*" style="display: none;" onchange="handleSignatureUpload(event)">
-                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('signatureUpload').click()">Choose File</button>
-                            <p id="uploadFileName" style="margin-top: 10px; font-size: 14px; color: #666;"></p>
-                        </div>
-
-                        <span class="error-message" id="error-signature"></span>
-                    </div>
-
-                    <div style="display: flex; align-items: start; gap: 10px; margin-top: 15px; padding: 15px; background-color: #fef3c7; border: 2px solid #fbbf24; border-radius: 6px;">
-                        <input type="checkbox" id="signatureAgreement" style="margin-top: 3px; flex-shrink: 0; width: 18px; height: 18px; cursor: pointer;">
-                        <label for="signatureAgreement" style="font-weight: normal; margin-bottom: 0; cursor: pointer;">
-                            I acknowledge that my electronic signature has the same legal effect as a handwritten signature and I consent to conduct business electronically.
-                        </label>
-                    </div>
-                    <span class="error-message" id="error-agreement"></span>
-                </div>
-
                 <!-- Submit Button -->
                 <div class="submit-section">
-                    <button type="submit" class="btn-submit">Download Search Request (PDF)</button>
+                    <button type="submit" class="btn-submit">Download and Share Search Request (PDF) with Bethel Worldwide Corporation</button>
                     <p class="submit-note">* Indicates required field</p>
                 </div>
             </form>
@@ -517,6 +440,34 @@
                         </span>
                     </label>
                 </div>
+
+                <div class="subsection-title" style="margin-top: 20px;">Jurisdictional Scope</div>
+                <div style="background-color: #fff9e6; padding: 12px; border-radius: 6px; border: 1px solid #f59e0b; font-size: 13px; margin-bottom: 15px;">
+                    <strong>📋 Registries/Divisions to be searched:</strong> Please select all applicable registries and divisions for this search subject.
+                </div>
+                
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" data-entity="${index}" data-field="civilDivision" value="High Court (Civil Division)">
+                        <span class="checkbox-label">High Court (Civil Division)</span>
+                    </label>
+
+                    <label class="checkbox-item">
+                        <input type="checkbox" data-entity="${index}" data-field="commercialDivision" value="High Court (Commercial Division)">
+                        <span class="checkbox-label">High Court (Commercial Division) – Claims over $500,000</span>
+                    </label>
+
+                    <label class="checkbox-item">
+                        <input type="checkbox" data-entity="${index}" data-field="courtAppeal" value="Court of Appeal">
+                        <span class="checkbox-label">Court of Appeal</span>
+                    </label>
+
+                    <label class="checkbox-item">
+                        <input type="checkbox" data-entity="${index}" data-field="probateRecords" value="Probate/Administration Records">
+                        <span class="checkbox-label">Probate/Administration Records</span>
+                    </label>
+                </div>
+                <span class="error-message" id="error-jurisdiction${index}"></span>
             `;
             container.appendChild(div);
         }
@@ -531,127 +482,7 @@
         // Initialize - add first entity
         document.addEventListener('DOMContentLoaded', function() {
             addEntity();
-            initializeSignatureCanvas();
         });
-
-        // Signature functionality
-        let signatureDataURL = null;
-        const canvas = document.getElementById('signatureCanvas');
-        const ctx = canvas.getContext('2d');
-        let isDrawing = false;
-
-        function initializeSignatureCanvas() {
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 2;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-
-            // Mouse events
-            canvas.addEventListener('mousedown', startDrawing);
-            canvas.addEventListener('mousemove', draw);
-            canvas.addEventListener('mouseup', stopDrawing);
-            canvas.addEventListener('mouseout', stopDrawing);
-
-            // Touch events
-            canvas.addEventListener('touchstart', handleTouchStart);
-            canvas.addEventListener('touchmove', handleTouchMove);
-            canvas.addEventListener('touchend', stopDrawing);
-        }
-
-        function startDrawing(e) {
-            isDrawing = true;
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-        }
-
-        function draw(e) {
-            if (!isDrawing) return;
-            e.preventDefault();
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            ctx.lineTo(x, y);
-            ctx.stroke();
-        }
-
-        function stopDrawing() {
-            if (isDrawing) {
-                isDrawing = false;
-                signatureDataURL = canvas.toDataURL();
-            }
-        }
-
-        function handleTouchStart(e) {
-            e.preventDefault();
-            const touch = e.touches[0];
-            const mouseEvent = new MouseEvent('mousedown', {
-                clientX: touch.clientX,
-                clientY: touch.clientY
-            });
-            canvas.dispatchEvent(mouseEvent);
-        }
-
-        function handleTouchMove(e) {
-            e.preventDefault();
-            const touch = e.touches[0];
-            const mouseEvent = new MouseEvent('mousemove', {
-                clientX: touch.clientX,
-                clientY: touch.clientY
-            });
-            canvas.dispatchEvent(mouseEvent);
-        }
-
-        function clearSignature() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            signatureDataURL = null;
-        }
-
-        function switchSignatureTab(tab) {
-            const tabs = document.querySelectorAll('.signature-tab');
-            const drawPanel = document.getElementById('drawPanel');
-            const uploadPanel = document.getElementById('uploadPanel');
-            
-            tabs.forEach(t => {
-                t.style.backgroundColor = '#e5e7eb';
-                t.style.color = '#333';
-            });
-            
-            if (tab === 'draw') {
-                tabs[0].style.backgroundColor = '#2d5986';
-                tabs[0].style.color = 'white';
-                drawPanel.style.display = 'block';
-                uploadPanel.style.display = 'none';
-            } else {
-                tabs[1].style.backgroundColor = '#2d5986';
-                tabs[1].style.color = 'white';
-                drawPanel.style.display = 'none';
-                uploadPanel.style.display = 'block';
-            }
-        }
-
-        function handleSignatureUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = new Image();
-                    img.onload = function() {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
-                        const x = (canvas.width - img.width * scale) / 2;
-                        const y = (canvas.height - img.height * scale) / 2;
-                        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-                        signatureDataURL = canvas.toDataURL();
-                        document.getElementById('uploadFileName').textContent = '✓ Signature uploaded: ' + file.name;
-                    };
-                    img.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
 
         // Form submission
         document.getElementById('litigationSearchForm').addEventListener('submit', function(e) {
@@ -676,13 +507,23 @@
                 }
             });
 
-            // Validate entities
+            // Validate entities and their jurisdictions
             let hasValidEntity = false;
             entities.forEach((entity, idx) => {
                 if (entity !== null) {
                     const nameField = document.querySelector(`input[data-entity="${idx}"][data-field="name"]`);
                     if (nameField && nameField.value.trim()) {
                         hasValidEntity = true;
+                        
+                        // Validate jurisdictions for this entity
+                        const jurisdictionChecks = document.querySelectorAll(`input[data-entity="${idx}"][data-field^="civil"], input[data-entity="${idx}"][data-field^="commercial"], input[data-entity="${idx}"][data-field^="court"], input[data-entity="${idx}"][data-field^="probate"]`);
+                        const hasJurisdiction = Array.from(jurisdictionChecks).some(checkbox => checkbox.checked);
+                        
+                        if (!hasJurisdiction) {
+                            isValid = false;
+                            const errorEl = document.getElementById(`error-jurisdiction${idx}`);
+                            if (errorEl) errorEl.textContent = 'Please select at least one registry/division for this entity';
+                        }
                     } else if (nameField) {
                         isValid = false;
                         const errorEl = document.getElementById(`error-entity${idx}`);
@@ -697,27 +538,8 @@
                 alert('Please add at least one entity or individual to search');
             }
 
-            // Validate jurisdictional scope
-            const jurisdictionChecked = document.querySelectorAll('input[name="jurisdiction"]:checked');
-            if (jurisdictionChecked.length === 0) {
-                isValid = false;
-                document.getElementById('error-jurisdiction').textContent = 'Please select at least one registry/division to search';
-            }
-
-            // Validate signature
-            if (!signatureDataURL) {
-                isValid = false;
-                document.getElementById('error-signature').textContent = 'Please provide your digital signature';
-            }
-
-            // Validate signature agreement
-            if (!document.getElementById('signatureAgreement').checked) {
-                isValid = false;
-                document.getElementById('error-agreement').textContent = 'You must agree to the electronic signature terms';
-            }
-
             if (!isValid) {
-                alert('Please fill in all required fields, provide your signature, and select at least one jurisdiction');
+                alert('Please fill in all required fields and select at least one jurisdiction for each entity');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 return;
             }
@@ -805,67 +627,46 @@
                         doc.setFontSize(10);
                         doc.setFont(undefined, 'normal');
                         yPosition += 5;
+                        
+                        // Jurisdictional Scope for this entity
+                        doc.setFont(undefined, 'bold');
+                        yPosition = addText('Jurisdictional Scope:', margin + 5, yPosition, pageWidth - 2 * margin - 10);
+                        doc.setFont(undefined, 'normal');
+                        yPosition += 3;
+                        
+                        // Get checked jurisdictions for this entity
+                        const civilDiv = document.querySelector(`input[data-entity="${idx}"][data-field="civilDivision"]`);
+                        const commercialDiv = document.querySelector(`input[data-entity="${idx}"][data-field="commercialDivision"]`);
+                        const courtAppeal = document.querySelector(`input[data-entity="${idx}"][data-field="courtAppeal"]`);
+                        const probate = document.querySelector(`input[data-entity="${idx}"][data-field="probateRecords"]`);
+                        
+                        if (civilDiv && civilDiv.checked) {
+                            doc.rect(margin + 10, yPosition - 2, 4, 4, 'F');
+                            yPosition = addText('   High Court (Civil Division)', margin + 10, yPosition + 1, pageWidth - 2 * margin - 15);
+                            yPosition += 2;
+                        }
+                        if (commercialDiv && commercialDiv.checked) {
+                            doc.rect(margin + 10, yPosition - 2, 4, 4, 'F');
+                            yPosition = addText('   High Court (Commercial Division) - Claims over $500,000', margin + 10, yPosition + 1, pageWidth - 2 * margin - 15);
+                            yPosition += 2;
+                        }
+                        if (courtAppeal && courtAppeal.checked) {
+                            doc.rect(margin + 10, yPosition - 2, 4, 4, 'F');
+                            yPosition = addText('   Court of Appeal', margin + 10, yPosition + 1, pageWidth - 2 * margin - 15);
+                            yPosition += 2;
+                        }
+                        if (probate && probate.checked) {
+                            doc.rect(margin + 10, yPosition - 2, 4, 4, 'F');
+                            yPosition = addText('   Probate/Administration Records', margin + 10, yPosition + 1, pageWidth - 2 * margin - 15);
+                            yPosition += 2;
+                        }
+                        
+                        yPosition += 8;
                     }
                 }
             });
 
             yPosition += 5;
-
-            // III. Jurisdictional Scope
-            if (yPosition > pageHeight - 60) {
-                doc.addPage();
-                yPosition = margin;
-            }
-            
-            doc.setFontSize(12);
-            doc.setFont(undefined, 'bold');
-            yPosition = addText('III. JURISDICTIONAL SCOPE', margin, yPosition, pageWidth - 2 * margin);
-            yPosition += 5;
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
-            yPosition = addText('Registries/Divisions to be searched:', margin, yPosition, pageWidth - 2 * margin);
-            yPosition += 3;
-
-            const jurisdictions = document.querySelectorAll('input[name="jurisdiction"]:checked');
-            jurisdictions.forEach(checkbox => {
-                // Add checkbox square (filled)
-                doc.rect(margin + 5, yPosition - 2, 4, 4, 'F');
-                yPosition = addText(`   ${checkbox.value}`, margin + 5, yPosition + 1, pageWidth - 2 * margin - 10);
-                yPosition += 2;
-            });
-
-            yPosition += 10;
-
-            // Signature
-            if (signatureDataURL) {
-                if (yPosition + 35 > pageHeight - margin) {
-                    doc.addPage();
-                    yPosition = margin;
-                }
-                
-                doc.setFontSize(12);
-                doc.setFont(undefined, 'bold');
-                yPosition = addText('SIGNATURE', margin, yPosition, pageWidth - 2 * margin);
-                yPosition += 5;
-                
-                doc.addImage(signatureDataURL, 'PNG', margin, yPosition, 60, 20);
-                yPosition += 22;
-                
-                doc.setFontSize(10);
-                doc.setFont(undefined, 'normal');
-                const contactName = document.getElementById('contactName').value;
-                yPosition = addText(`Signature: ${contactName}`, margin, yPosition, pageWidth - 2 * margin);
-                yPosition += 3;
-                yPosition = addText('(Digitally Signed)', margin, yPosition, pageWidth - 2 * margin);
-                
-                const signDate = new Date(document.getElementById('requestDate').value).toLocaleDateString('en-GB', { 
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                });
-                yPosition += 3;
-                yPosition = addText(`Date: ${signDate}`, margin, yPosition, pageWidth - 2 * margin);
-            }
 
             // Save PDF
             const fileName = `BVI_Litigation_Search_${document.getElementById('fileReference').value.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
