@@ -361,28 +361,27 @@
                         <span class="error-message" id="error-entityName"></span>
                     </div>
 
-                    <div class="form-group">
-                        <label>Entity Number <span class="required">*</span></label>
-                        <input type="text" id="entityNumber" placeholder="Enter entity number" required>
-                        <span class="error-message" id="error-entityNumber"></span>
-                    </div>
-
                     <div class="grid-2">
                         <div class="form-group">
-                            <label>Entity Status</label>
-                            <div class="fixed-field">Active</div>
+                            <label>Entity Number <span class="required">*</span></label>
+                            <input type="text" id="entityNumber" placeholder="Enter entity number" required>
+                            <span class="error-message" id="error-entityNumber"></span>
                         </div>
-
                         <div class="form-group">
-                            <label>Entity Type</label>
-                            <div class="fixed-field">BC New Incorporation</div>
+                            <label>Date of Incorporation <span class="required">*</span></label>
+                            <input type="date" id="incorporationDate" required>
+                            <span class="error-message" id="error-incorporationDate"></span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Date of Incorporation <span class="required">*</span></label>
-                        <input type="date" id="incorporationDate" required>
-                        <span class="error-message" id="error-incorporationDate"></span>
+                        <label>Entity Status</label>
+                        <div class="fixed-field">Active</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Entity Type</label>
+                        <div class="fixed-field">BC New Incorporation</div>
                     </div>
 
                     <div class="subsection-title">Registered Office Address</div>
@@ -395,11 +394,11 @@
                         British Virgin Islands
                     </div>
 
-                    <div class="form-group" style="margin-top: 20px;">
-                        <label><strong>Business Address is the same as the Registered Office Address?</strong></label>
+                    <div class="form-group" style="margin-top: 25px;">
+                        <label><strong>Is Business Address same as Registered Office Address?</strong></label>
                         <div class="radio-group">
                             <label class="radio-label">
-                                <input type="radio" name="sameAddress" value="yes" onchange="toggleBusinessAddress()">
+                                <input type="radio" name="sameAddress" value="yes" onchange="toggleBusinessAddress()" checked>
                                 <span>Yes</span>
                             </label>
                             <label class="radio-label">
@@ -407,7 +406,6 @@
                                 <span>No</span>
                             </label>
                         </div>
-                        <span class="error-message" id="error-sameAddress"></span>
                     </div>
 
                     <div id="businessAddressFields" style="display: none;">
@@ -599,8 +597,8 @@
 
                 <!-- Submit Button -->
                 <div class="submit-section">
-                    <button type="submit" class="btn-submit">Download the Declaration (PDF) and email pdf to Bethel Worldwide Corporation</button>
-                    <p class="submit-note">* Indicates required field</p>
+                    <button type="button" class="btn-submit" onclick="generatePDF()">Generate PDF</button>
+                    <p class="submit-note">Click to generate a PDF of this declaration</p>
                 </div>
             </form>
         </div>
@@ -617,8 +615,8 @@
         // Initialize arrays
         const beneficialOwners = [];
 
-        // Country list (195 countries)
-        const countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","East Timor","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
+        // Country list with UK Overseas Territories added alphabetically
+        const countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Bermuda","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Cayman Islands","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","East Timor","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turks and Caicos Islands","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
 
         // Populate country dropdowns
         function populateCountryDropdown(selectElement) {
@@ -854,54 +852,30 @@
                             }
                         });
                     } else {
-                        // Restore text/date/select fields
                         const el = document.getElementById(id);
                         if (el) el.value = value;
                     }
                 }
 
-                // Restore beneficial owners
-                if (formData.dynamicCounts && formData.dynamicCounts.beneficialOwners >= 1) {
-                    // Clear container
-                    const container = document.getElementById('beneficialOwnersContainer');
-                    container.innerHTML = '';
-                    beneficialOwners.length = 0;
-
-                    // Re-add the correct number of BOs
+                // Restore BOs
+                if (formData.dynamicCounts.beneficialOwners > 0) {
                     for (let i = 0; i < formData.dynamicCounts.beneficialOwners; i++) {
                         addBeneficialOwner();
                     }
 
-                    // Restore BO field values
-                    setTimeout(() => {
-                        if (formData.boFields) {
-                            for (const [key, value] of Object.entries(formData.boFields)) {
-                                // Parse key like "bo0_firstName"
-                                const match = key.match(/^bo(\d+)_(.+)$/);
-                                if (match) {
-                                    const boIndex = match[1];
-                                    const fieldName = match[2];
-                                    const field = document.querySelector(`[data-bo="${boIndex}"][data-field="${fieldName}"]`);
-                                    if (field) {
-                                        field.value = value;
-                                    }
-                                }
-                            }
+                    // Restore BO fields
+                    for (const [key, value] of Object.entries(formData.boFields)) {
+                        const match = key.match(/bo(\d+)_(.+)/);
+                        if (match) {
+                            const boIndex = match[1];
+                            const fieldName = match[2];
+                            const el = document.querySelector(`[data-bo="${boIndex}"][data-field="${fieldName}"]`);
+                            if (el) el.value = value;
                         }
-                    }, 100);
+                    }
                 }
 
-                // Update last saved time
-                const savedDate = new Date(formData.timestamp);
-                document.getElementById('lastSavedTime').textContent = 'Last saved: ' + savedDate.toLocaleString();
-                document.getElementById('saveStatus').textContent = '✓ Previous progress loaded successfully!';
-                document.getElementById('saveStatus').style.color = '#047857';
-
-                setTimeout(() => {
-                    document.getElementById('saveStatus').textContent = 'Your progress is automatically saved every 30 seconds. You can also save manually.';
-                    document.getElementById('saveStatus').style.color = '#075985';
-                }, 5000);
-
+                document.getElementById('lastSavedTime').textContent = 'Last saved: ' + new Date(formData.timestamp).toLocaleString();
                 return true;
             } catch (e) {
                 console.error('Error loading progress:', e);
@@ -914,132 +888,117 @@
             if (confirm('Are you sure you want to clear all saved progress? This cannot be undone.')) {
                 localStorage.removeItem('esDeclarationForm');
                 document.getElementById('lastSavedTime').textContent = '';
-                document.getElementById('saveStatus').textContent = 'Saved data cleared. Start fresh!';
+                document.getElementById('saveStatus').textContent = 'Saved data cleared. Form will be reset on next page load.';
                 document.getElementById('saveStatus').style.color = '#dc2626';
-
-                setTimeout(() => {
-                    document.getElementById('saveStatus').textContent = 'Your progress is automatically saved every 30 seconds. You can also save manually.';
-                    document.getElementById('saveStatus').style.color = '#075985';
-                }, 3000);
-
-                location.reload();
             }
         }
 
         // Auto-save every 30 seconds
         setInterval(saveFormProgress, 30000);
 
-        // Form submission
-        document.getElementById('esForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Generate PDF
+        function generatePDF() {
+            // Validation
+            const required = ['periodStartDate', 'periodEndDate', 'entityName', 'entityNumber', 'incorporationDate', 'declarationType', 'entityActivities'];
+            let valid = true;
 
-            // Clear previous errors
-            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-            document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
-
-            let isValid = true;
-
-            // Validate required fields
-            const requiredFields = ['periodStartDate', 'periodEndDate', 'entityName', 'entityNumber', 'incorporationDate', 'declarationType', 'entityActivities'];
-
-            requiredFields.forEach(field => {
-                const el = document.getElementById(field);
-                if (!el || !el.value.trim()) {
-                    isValid = false;
-                    const errorEl = document.getElementById(`error-${field}`);
-                    if (errorEl) errorEl.textContent = 'This field is required';
+            required.forEach(id => {
+                const el = document.getElementById(id);
+                const errorEl = document.getElementById('error-' + id);
+                if (el && !el.value) {
                     if (el) el.classList.add('error');
+                    if (errorEl) errorEl.textContent = 'This field is required';
+                    valid = false;
+                } else {
+                    if (el) el.classList.remove('error');
+                    if (errorEl) errorEl.textContent = '';
                 }
             });
 
-            // Validate same address selection
+            // Validate business address if "No" is selected
             const sameAddress = document.querySelector('input[name="sameAddress"]:checked');
-            if (!sameAddress) {
-                isValid = false;
-                document.getElementById('error-sameAddress').textContent = 'Please select an option';
-            }
-
-            // Validate business address if different
             if (sameAddress && sameAddress.value === 'no') {
-                const businessAddressFields = ['businessAddress', 'businessCity', 'businessCountry'];
-                businessAddressFields.forEach(field => {
-                    const el = document.getElementById(field);
-                    if (!el || !el.value.trim()) {
-                        isValid = false;
-                        const errorEl = document.getElementById(`error-${field}`);
-                        if (errorEl) errorEl.textContent = 'This field is required';
+                ['businessAddress', 'businessCity', 'businessCountry'].forEach(id => {
+                    const el = document.getElementById(id);
+                    const errorEl = document.getElementById('error-' + id);
+                    if (el && !el.value) {
                         if (el) el.classList.add('error');
+                        if (errorEl) errorEl.textContent = 'This field is required';
+                        valid = false;
+                    } else {
+                        if (el) el.classList.remove('error');
+                        if (errorEl) errorEl.textContent = '';
                     }
                 });
             }
 
-            // Validate beneficial owners
-            let hasCompleteBO = false;
+            // Validate at least one BO with required fields
+            let hasValidBO = false;
             beneficialOwners.forEach((bo, idx) => {
                 if (bo !== null) {
-                    const firstName = document.querySelector(`input[data-bo="${idx}"][data-field="firstName"]`);
-                    const lastName = document.querySelector(`input[data-bo="${idx}"][data-field="lastName"]`);
-                    const dob = document.querySelector(`input[data-bo="${idx}"][data-field="dob"]`);
-                    const boType = document.querySelector(`select[data-bo="${idx}"][data-field="boType"]`);
-                    const startDate = document.querySelector(`input[data-bo="${idx}"][data-field="startDate"]`);
-                    const address = document.querySelector(`input[data-bo="${idx}"][data-field="address"]`);
-                    const city = document.querySelector(`input[data-bo="${idx}"][data-field="city"]`);
-                    const country = document.querySelector(`select[data-bo="${idx}"][data-field="country"]`);
-                    const taxResidence = document.querySelector(`select[data-bo="${idx}"][data-field="taxResidence"]`);
-                    
-                    if (firstName && lastName && dob && boType && startDate && address && city && country && taxResidence &&
-                        firstName.value.trim() && lastName.value.trim() && dob.value && boType.value && 
-                        startDate.value && address.value.trim() && city.value.trim() && 
-                        country.value && taxResidence.value) {
-                        hasCompleteBO = true;
+                    const firstName = document.querySelector(`input[data-bo="${idx}"][data-field="firstName"]`)?.value;
+                    const lastName = document.querySelector(`input[data-bo="${idx}"][data-field="lastName"]`)?.value;
+                    const dob = document.querySelector(`input[data-bo="${idx}"][data-field="dob"]`)?.value;
+                    const boType = document.querySelector(`select[data-bo="${idx}"][data-field="boType"]`)?.value;
+                    const startDate = document.querySelector(`input[data-bo="${idx}"][data-field="startDate"]`)?.value;
+                    const address = document.querySelector(`input[data-bo="${idx}"][data-field="address"]`)?.value;
+                    const city = document.querySelector(`input[data-bo="${idx}"][data-field="city"]`)?.value;
+                    const country = document.querySelector(`select[data-bo="${idx}"][data-field="country"]`)?.value;
+                    const taxResidence = document.querySelector(`select[data-bo="${idx}"][data-field="taxResidence"]`)?.value;
+
+                    if (firstName && lastName && dob && boType && startDate && address && city && country && taxResidence) {
+                        hasValidBO = true;
                     }
                 }
             });
-            
-            if (!hasCompleteBO) {
-                isValid = false;
-                alert('Please complete at least one beneficial owner with all required fields (First Name, Last Name, Date of Birth, BO Type, Start Date, Address, City, Country, and Jurisdiction of Tax Residence)');
+
+            if (!hasValidBO) {
+                alert('Please complete at least one beneficial owner with all required fields (First Name, Last Name, Date of Birth, BO Type, Start Date, Address, City, Country, and Tax Residence).');
+                valid = false;
             }
 
-            if (!isValid) {
-                alert('Please fill in all required fields marked with *');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (!valid) {
+                alert('Please complete all required fields marked with *');
                 return;
             }
 
-            // Generate PDF
-            generatePDF();
-        });
-
-        function generatePDF() {
+            // Initialize jsPDF
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            const pageWidth = doc.internal.pageSize.width;
-            const pageHeight = doc.internal.pageSize.height;
-            const margin = 20;
-            const lineHeight = 6;
+            
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const margin = 15;
             let yPosition = margin;
 
+            // Helper function to add text with wrapping and page breaks
             function addText(text, x, y, maxWidth) {
                 const lines = doc.splitTextToSize(text, maxWidth);
-                lines.forEach((line, index) => {
-                    if (y + (index * lineHeight) > pageHeight - margin) {
+                lines.forEach(line => {
+                    if (y > pageHeight - 20) {
                         doc.addPage();
                         y = margin;
                     }
-                    doc.text(line, x, y + (index * lineHeight));
+                    doc.text(line, x, y);
+                    y += 6;
                 });
-                return y + (lines.length * lineHeight);
+                return y;
             }
 
-            // Title
-            doc.setFontSize(14);
+            // Header
+            doc.setFillColor(45, 89, 134);
+            doc.rect(0, 0, pageWidth, 35, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(18);
             doc.setFont(undefined, 'bold');
-            yPosition = addText('ECONOMIC SUBSTANCE DECLARATION', margin, yPosition, pageWidth - 2 * margin);
-            yPosition += 3;
+            doc.text('BETHEL WORLDWIDE CORPORATION', pageWidth / 2, 12, { align: 'center' });
+            doc.setFontSize(14);
+            doc.text('Economic Substance Declaration', pageWidth / 2, 20, { align: 'center' });
             doc.setFontSize(12);
-            yPosition = addText('Company Not Conducting Relevant Activity', margin, yPosition, pageWidth - 2 * margin);
-            yPosition += 10;
+            doc.text('Company Not Conducting Relevant Activity', pageWidth / 2, 28, { align: 'center' });
+            
+            doc.setTextColor(0, 0, 0);
+            yPosition = 45;
 
             // Financial Period
             doc.setFontSize(11);
@@ -1070,8 +1029,8 @@
             yPosition += 5;
 
             // Business Address
-            const sameAddress = document.querySelector('input[name="sameAddress"]:checked');
-            if (sameAddress && sameAddress.value === 'no') {
+            const sameAddressRadio = document.querySelector('input[name="sameAddress"]:checked');
+            if (sameAddressRadio && sameAddressRadio.value === 'no') {
                 yPosition = addText('Business Address:', margin, yPosition, pageWidth - 2 * margin);
                 let businessAddr = document.getElementById('businessAddress').value;
                 if (document.getElementById('businessStreet').value) businessAddr += ', ' + document.getElementById('businessStreet').value;
