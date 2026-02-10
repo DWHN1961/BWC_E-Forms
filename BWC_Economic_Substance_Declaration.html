@@ -2578,6 +2578,12 @@
                 return y;
             }
 
+            // Helper function to safely get element value
+            function getValue(elementId, defaultValue = '') {
+                const element = document.getElementById(elementId);
+                return element ? (element.value || defaultValue) : defaultValue;
+            }
+
             // Header
             doc.setFillColor(45, 89, 134);
             doc.rect(0, 0, pageWidth, 35, 'F');
@@ -2598,8 +2604,8 @@
             yPosition += 5;
             doc.setFontSize(10);
             doc.setFont(undefined, 'normal');
-            yPosition = addText(`Start Date: ${document.getElementById('periodStartDate').value}`, margin, yPosition, pageWidth - 2 * margin);
-            yPosition = addText(`End Date: ${document.getElementById('periodEndDate').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Start Date: ${getValue('periodStartDate')}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`End Date: ${getValue('periodEndDate')}`, margin, yPosition, pageWidth - 2 * margin);
             yPosition += 8;
 
             // Entity Information
@@ -2609,11 +2615,11 @@
             yPosition += 5;
             doc.setFontSize(10);
             doc.setFont(undefined, 'normal');
-            yPosition = addText(`Entity Name: ${document.getElementById('entityName').value}`, margin, yPosition, pageWidth - 2 * margin);
-            yPosition = addText(`Entity Number: ${document.getElementById('entityNumber').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Entity Name: ${getValue('entityName')}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Entity Number: ${getValue('entityNumber')}`, margin, yPosition, pageWidth - 2 * margin);
             yPosition = addText(`Entity Status: Active`, margin, yPosition, pageWidth - 2 * margin);
-            yPosition = addText(`Entity Type: ${document.getElementById('entityType').value}`, margin, yPosition, pageWidth - 2 * margin);
-            yPosition = addText(`Date of Incorporation / Registration: ${document.getElementById('incorporationDate').value}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Entity Type: ${getValue('entityType')}`, margin, yPosition, pageWidth - 2 * margin);
+            yPosition = addText(`Date of Incorporation / Registration: ${getValue('incorporationDate')}`, margin, yPosition, pageWidth - 2 * margin);
             yPosition += 5;
             yPosition = addText('Registered Office Address:', margin, yPosition, pageWidth - 2 * margin);
             yPosition = addText('Bethel House, P.O. Box 4749, Road Town, Tortola, VG1110, British Virgin Islands', margin + 5, yPosition, pageWidth - 2 * margin - 5);
@@ -2623,12 +2629,18 @@
             const sameAddressRadio = document.querySelector('input[name="sameAddress"]:checked');
             if (sameAddressRadio && sameAddressRadio.value === 'no') {
                 yPosition = addText('Business Address:', margin, yPosition, pageWidth - 2 * margin);
-                let businessAddr = document.getElementById('businessAddress').value || '';
-                if (document.getElementById('businessStreet').value) businessAddr += (businessAddr ? ', ' : '') + document.getElementById('businessStreet').value;
-                if (document.getElementById('businessCity').value) businessAddr += (businessAddr ? ', ' : '') + document.getElementById('businessCity').value;
-                if (document.getElementById('businessState').value) businessAddr += (businessAddr ? ', ' : '') + document.getElementById('businessState').value;
-                if (document.getElementById('businessPostal').value) businessAddr += (businessAddr ? ', ' : '') + document.getElementById('businessPostal').value;
-                if (document.getElementById('businessCountry').value) businessAddr += (businessAddr ? ', ' : '') + document.getElementById('businessCountry').value;
+                let businessAddr = getValue('businessAddress');
+                const businessStreet = getValue('businessStreet');
+                const businessCity = getValue('businessCity');
+                const businessState = getValue('businessState');
+                const businessPostal = getValue('businessPostal');
+                const businessCountry = getValue('businessCountry');
+                
+                if (businessStreet) businessAddr += (businessAddr ? ', ' : '') + businessStreet;
+                if (businessCity) businessAddr += (businessAddr ? ', ' : '') + businessCity;
+                if (businessState) businessAddr += (businessAddr ? ', ' : '') + businessState;
+                if (businessPostal) businessAddr += (businessAddr ? ', ' : '') + businessPostal;
+                if (businessCountry) businessAddr += (businessAddr ? ', ' : '') + businessCountry;
                 if (businessAddr) yPosition = addText(businessAddr, margin + 5, yPosition, pageWidth - 2 * margin - 5);
                 yPosition += 5;
             } else {
@@ -2636,11 +2648,13 @@
                 yPosition += 5;
             }
 
-            if (document.getElementById('tin').value) {
-                yPosition = addText(`TIN: ${document.getElementById('tin').value} (Issued by: ${document.getElementById('tinCountry').value || 'N/A'})`, margin, yPosition, pageWidth - 2 * margin);
+            const tin = getValue('tin');
+            if (tin) {
+                yPosition = addText(`TIN: ${tin} (Issued by: ${getValue('tinCountry', 'N/A')})`, margin, yPosition, pageWidth - 2 * margin);
             }
-            if (document.getElementById('otherIdNo').value) {
-                yPosition = addText(`Other ID: ${document.getElementById('otherIdNo').value} (Type: ${document.getElementById('otherIdType').value || 'N/A'}, Issued by: ${document.getElementById('otherIdCountry').value || 'N/A'})`, margin, yPosition, pageWidth - 2 * margin);
+            const otherIdNo = getValue('otherIdNo');
+            if (otherIdNo) {
+                yPosition = addText(`Other ID: ${otherIdNo} (Type: ${getValue('otherIdType', 'N/A')}, Issued by: ${getValue('otherIdCountry', 'N/A')})`, margin, yPosition, pageWidth - 2 * margin);
             }
             yPosition += 5;
 
@@ -2737,16 +2751,16 @@
             doc.setFontSize(10);
             doc.setFont(undefined, 'normal');
             
-            const declarationType = document.getElementById('declarationType').value;
+            const declarationType = getValue('declarationType');
             yPosition = addText(`Declaration Type: ${declarationType}`, margin, yPosition, pageWidth - 2 * margin);
             yPosition += 5;
             
-            const entityActivities = document.getElementById('entityActivities').value;
+            const entityActivities = getValue('entityActivities');
             yPosition = addText('Description of Activities:', margin, yPosition, pageWidth - 2 * margin);
             yPosition = addText(entityActivities, margin + 5, yPosition, pageWidth - 2 * margin - 5);
             yPosition += 5;
             
-            const supportingComments = document.getElementById('supportingComments').value;
+            const supportingComments = getValue('supportingComments');
             if (supportingComments) {
                 yPosition = addText('Supporting Comments:', margin, yPosition, pageWidth - 2 * margin);
                 yPosition = addText(supportingComments, margin + 5, yPosition, pageWidth - 2 * margin - 5);
@@ -2754,7 +2768,7 @@
             }
 
             // Remarks
-            const remarks = document.getElementById('remarks').value;
+            const remarks = getValue('remarks');
             if (remarks) {
                 if (yPosition > pageHeight - 40) {
                     doc.addPage();
@@ -2784,9 +2798,9 @@
             doc.setFontSize(10);
             doc.setFont(undefined, 'normal');
             
-            const signatoryName = document.getElementById('signatoryName').value;
-            const signatoryTitle = document.getElementById('signatoryTitle').value;
-            const signatureDate = document.getElementById('signatureDate').value;
+            const signatoryName = getValue('signatoryName');
+            const signatoryTitle = getValue('signatoryTitle');
+            const signatureDate = getValue('signatureDate');
             
             yPosition = addText(`Signatory Name: ${signatoryName}`, margin, yPosition, pageWidth - 2 * margin);
             yPosition = addText(`Title/Position: ${signatoryTitle}`, margin, yPosition, pageWidth - 2 * margin);
@@ -2816,7 +2830,8 @@
             }
 
             // Save PDF
-            const fileName = `ES_Declaration_${document.getElementById('entityName').value.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+            const entityName = getValue('entityName', 'Entity');
+            const fileName = `ES_Declaration_${entityName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
             doc.save(fileName);
 
             // Hide loading spinner
