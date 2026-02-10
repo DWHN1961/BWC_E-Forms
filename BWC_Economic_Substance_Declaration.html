@@ -1480,9 +1480,11 @@
                         <div style="border: 2px solid #d1d5db; border-radius: 6px; background: white; padding: 10px;">
                             <canvas id="signatureCanvas" width="900" height="200" style="border: 1px dashed #9ca3af; cursor: crosshair; display: block; width: 100%; max-width: 900px;"></canvas>
                         </div>
-                        <div style="margin-top: 10px; display: flex; gap: 10px;">
+                        <div style="margin-top: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
                             <button type="button" class="btn btn-secondary" onclick="clearSignature()">Clear Signature</button>
-                            <span style="color: #6b7280; font-size: 14px; margin-left: 10px; line-height: 40px;">Draw your signature above using your mouse or touchscreen</span>
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('signatureUpload').click()">Upload Signature</button>
+                            <input type="file" id="signatureUpload" accept="image/*" style="display: none;" onchange="uploadSignature(event)">
+                            <span style="color: #6b7280; font-size: 14px;">Draw your signature using your mouse/touchscreen or upload an image</span>
                         </div>
                         <span class="error-message" id="error-signature"></span>
                     </div>
@@ -2269,6 +2271,68 @@
             }
         }
 
+        function uploadSignature(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                alert('Please upload an image file (PNG, JPG, GIF, etc.)');
+                event.target.value = ''; // Clear the input
+                return;
+            }
+
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Image file is too large. Please upload an image smaller than 5MB.');
+                event.target.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    // Clear the canvas first
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Calculate scaling to fit the image in the canvas while maintaining aspect ratio
+                    const maxWidth = canvas.width;
+                    const maxHeight = canvas.height;
+                    let width = img.width;
+                    let height = img.height;
+
+                    // Scale down if image is larger than canvas
+                    if (width > maxWidth || height > maxHeight) {
+                        const ratio = Math.min(maxWidth / width, maxHeight / height);
+                        width = width * ratio;
+                        height = height * ratio;
+                    }
+
+                    // Center the image on the canvas
+                    const x = (canvas.width - width) / 2;
+                    const y = (canvas.height - height) / 2;
+
+                    // Draw the image
+                    ctx.drawImage(img, x, y, width, height);
+                    hasSignature = true;
+
+                    // Clear the file input so the same file can be uploaded again if needed
+                    event.target.value = '';
+                };
+                img.onerror = function() {
+                    alert('Failed to load the image. Please try a different file.');
+                    event.target.value = '';
+                };
+                img.src = e.target.result;
+            };
+            reader.onerror = function() {
+                alert('Failed to read the file. Please try again.');
+                event.target.value = '';
+            };
+            reader.readAsDataURL(file);
+        }
+
         function getSignatureImage() {
             return canvas.toDataURL('image/png');
         }
@@ -2559,13 +2623,13 @@
             const sameAddressRadio = document.querySelector('input[name="sameAddress"]:checked');
             if (sameAddressRadio && sameAddressRadio.value === 'no') {
                 yPosition = addText('Business Address:', margin, yPosition, pageWidth - 2 * margin);
-                let businessAddr = document.getElementById('businessAddress').value;
-                if (document.getElementById('businessStreet').value) businessAddr += ', ' + document.getElementById('businessStreet').value;
-                if (document.getElementById('businessCity').value) businessAddr += ', ' + document.getElementById('businessCity').value;
-                if (document.getElementById('businessState').value) businessAddr += ', ' + document.getElementById('businessState').value;
-                if (document.getElementById('businessPostal').value) businessAddr += ', ' + document.getElementById('businessPostal').value;
-                businessAddr += ', ' + document.getElementById('businessCountry').value;
-                yPosition = addText(businessAddr, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                let businessAddr = document.getElementById('businessAddress').value || '';
+                if (document.getElementById('businessStreet').value) businessAddr += (businessAddr ? ', ' : '') + document.getElementById('businessStreet').value;
+                if (document.getElementById('businessCity').value) businessAddr += (businessAddr ? ', ' : '') + document.getElementById('businessCity').value;
+                if (document.getElementById('businessState').value) businessAddr += (businessAddr ? ', ' : '') + document.getElementById('businessState').value;
+                if (document.getElementById('businessPostal').value) businessAddr += (businessAddr ? ', ' : '') + document.getElementById('businessPostal').value;
+                if (document.getElementById('businessCountry').value) businessAddr += (businessAddr ? ', ' : '') + document.getElementById('businessCountry').value;
+                if (businessAddr) yPosition = addText(businessAddr, margin + 5, yPosition, pageWidth - 2 * margin - 5);
                 yPosition += 5;
             } else {
                 yPosition = addText('Business Address: Same as Registered Office Address', margin, yPosition, pageWidth - 2 * margin);
@@ -2643,15 +2707,17 @@
                         yPosition = addText(`BO Type: ${boType}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
                         yPosition = addText(`Start Date: ${startDate}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
                         if (endDate) yPosition = addText(`End Date: ${endDate}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
-                        if (taxId) yPosition = addText(`Tax ID: ${taxId} (Issued by: ${taxIdCountry})`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                        if (taxId) yPosition = addText(`Tax ID: ${taxId} (Issued by: ${taxIdCountry || 'N/A'})`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
                         
-                        let boAddress = address;
-                        if (street) boAddress += ', ' + street;
-                        if (city) boAddress += ', ' + city;
-                        if (state) boAddress += ', ' + state;
-                        if (postal) boAddress += ', ' + postal;
-                        boAddress += ', ' + country;
-                        yPosition = addText(`Address: ${boAddress}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
+                        // Build address safely
+                        let boAddress = '';
+                        if (address) boAddress = address;
+                        if (street) boAddress += (boAddress ? ', ' : '') + street;
+                        if (city) boAddress += (boAddress ? ', ' : '') + city;
+                        if (state) boAddress += (boAddress ? ', ' : '') + state;
+                        if (postal) boAddress += (boAddress ? ', ' : '') + postal;
+                        if (country) boAddress += (boAddress ? ', ' : '') + country;
+                        if (boAddress) yPosition = addText(`Address: ${boAddress}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
                         yPosition = addText(`Tax Residence: ${taxResidence}`, margin + 5, yPosition, pageWidth - 2 * margin - 5);
                         yPosition += 5;
                     }
@@ -2727,10 +2793,27 @@
             yPosition = addText(`Date: ${signatureDate}`, margin, yPosition, pageWidth - 2 * margin);
             yPosition += 5;
             
-            // Add signature image
-            const signatureImage = getSignatureImage();
-            doc.addImage(signatureImage, 'PNG', margin, yPosition, 80, 20);
-            yPosition += 25;
+            // Add signature image with error handling
+            try {
+                const signatureImage = getSignatureImage();
+                if (signatureImage && signatureImage.length > 100) { // Basic validation
+                    doc.addImage(signatureImage, 'PNG', margin, yPosition, 80, 20);
+                    yPosition += 25;
+                } else {
+                    // If signature image fails, add a text placeholder
+                    doc.setFontSize(10);
+                    doc.setFont(undefined, 'italic');
+                    doc.text('[Signature on file]', margin, yPosition);
+                    yPosition += 10;
+                }
+            } catch (imgError) {
+                console.error('Signature image error:', imgError);
+                // Add text placeholder if image fails
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'italic');
+                doc.text('[Signature on file]', margin, yPosition);
+                yPosition += 10;
+            }
 
             // Save PDF
             const fileName = `ES_Declaration_${document.getElementById('entityName').value.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
@@ -2741,7 +2824,8 @@
             
                 } catch (error) {
                     console.error('PDF generation error:', error);
-                    alert('An error occurred while generating the PDF. Please try again or contact support if the problem persists.');
+                    console.error('Error details:', error.message, error.stack);
+                    alert('An error occurred while generating the PDF: ' + error.message + '\n\nPlease try again or contact support if the problem persists.');
                     document.getElementById('loadingSpinner').style.display = 'none';
                 }
             }, 100); // End of setTimeout
