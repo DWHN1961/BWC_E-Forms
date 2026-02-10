@@ -2483,9 +2483,17 @@
 
             // Use setTimeout to allow the spinner to render before heavy processing
             setTimeout(() => {
-                // Initialize jsPDF
-                const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+                try {
+                    // Check if jsPDF is loaded
+                    if (typeof window.jspdf === 'undefined') {
+                        alert('PDF library failed to load. Please refresh the page and try again.');
+                        document.getElementById('loadingSpinner').style.display = 'none';
+                        return;
+                    }
+                    
+                    // Initialize jsPDF
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
             
             const pageWidth = doc.internal.pageSize.getWidth();
             const pageHeight = doc.internal.pageSize.getHeight();
@@ -2730,6 +2738,12 @@
 
             // Hide loading spinner
             document.getElementById('loadingSpinner').style.display = 'none';
+            
+                } catch (error) {
+                    console.error('PDF generation error:', error);
+                    alert('An error occurred while generating the PDF. Please try again or contact support if the problem persists.');
+                    document.getElementById('loadingSpinner').style.display = 'none';
+                }
             }, 100); // End of setTimeout
         }
     </script>
